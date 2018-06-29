@@ -1,8 +1,8 @@
 {
-  "name": "CheckPlease",
-  "app_id": "e2ef5c4e",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+	"name": "CheckPlease",
+	"app_id": "e2ef5c4e",
+	"type": "ionic-angular",
+	"integrations": {
+		"cordova": {}
+	}
 }
