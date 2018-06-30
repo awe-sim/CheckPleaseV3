@@ -102,6 +102,11 @@
 		"ERR_DUPLICATE_NAME"    : "Another person already exists with the same name!",
 		"ERR_NEXT_PAGE"         : "Please add a few persons first!",
 		"NEXT_PAGE"             : "NEXT"
+	},
+
+	"PERSON_DEPENDANTS_PAGE": {
+		"COVERING_EXPENSES_FOR": "Covering expenses for",
+		"TITLE": "Financing someone?"
 	}
 
 }
