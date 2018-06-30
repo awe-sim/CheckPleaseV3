@@ -80,6 +80,28 @@
 		"ERR_INSUFFICIENT_CHANGE"   : "There is not sufficient change to return this amount",
 		"ERR_INVALID_AMOUNT"        : "Please enter a valid amount",
 		"ERR_UNFAIR_CHANGE"         : "\"{{ name }}\" can reclaim change no greater than {{ amount }}"
+	},
+
+	"PERSONS_PAGE": {
+		"TITLE"                 : "Who's present at the table?",
+		"TIP_ADD"               : "Tap the #person# button to add a few persons.",
+		"TIP_MORE_OPTIONS"      : "Tap on a person for more options.",
+		"COUNT_SINGULAR"        : "1 person",
+		"COUNT_PLURAL"          : "{{ value }} persons",
+		"COVERING_EXPENSES_FOR" : "Covering expenses for {{ names }}",
+		"ACTION_TITLE"          : "{{ name }}",
+		"ADD_TITLE"             : "Add Person",
+		"ADD_MESSAGE"           : "",
+		"ADD_PLACEHOLDER"       : "Enter a name",
+		"RENAME_TITLE"          : "{{ name }}",
+		"RENAME_MESSAGE"        : "",
+		"RENAME_PLACEHOLDER"    : "Enter new name",
+		"REMOVE_TITLE"          : "{{ name }}",
+		"REMOVE_MESSAGE"        : "Are you sure you want to remove this person?",
+		"ERR_BLANK_NAME"        : "Please enter a name!",
+		"ERR_DUPLICATE_NAME"    : "Another person already exists with the same name!",
+		"ERR_NEXT_PAGE"         : "Please add a few persons first!",
+		"NEXT_PAGE"             : "NEXT"
 	}
 
 }

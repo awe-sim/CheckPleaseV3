@@ -1,0 +1,51 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'PERSONS_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="home" size="large"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-list class="no-border-top">
+		<ion-item>
+			<h2 text-wrap class="note" *ngIf="split.personList.numPersons === 0" [innerHTML]="'PERSONS_PAGE.TIP_ADD' | translate | iconHtml"></h2>
+			<h2 text-wrap class="note" *ngIf="split.personList.numPersons !== 0" [innerHTML]="'PERSONS_PAGE.TIP_MORE_OPTIONS' | translate | iconHtml"></h2>
+		</ion-item>
+	</ion-list>
+
+	<ion-list *ngFor="let financer of split.personList.financers">
+		<ion-item (tap)="showActions(financer)">
+			<ion-avatar item-start text-avatar [id]="financer.id" [text]="financer.initials" shape="CIRCLE"></ion-avatar>
+			<h2>{{ financer.name }}</h2>
+			<p text-wrap *ngIf="financer.numDependants !== 0">{{ 'PERSONS_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(financer.dependants, 0)} }}</p>
+		</ion-item>
+		<ion-item *ngFor="let dependant of financer.dependants" (tap)="showActions(dependant)">
+			<ion-avatar item-start text-avatar [id]="financer.id" [text]="dependant.initials" shape="CIRCLE" size="SMALL"></ion-avatar>
+			<h2>{{ dependant.name }}</h2>
+		</ion-item>
+	</ion-list>
+	<ion-list class="compact" *ngIf="split.personList.numFinancers !== 0">
+		<ion-item>
+			<p>{{ (split.personList.numPersons === 1 ? 'PERSONS_PAGE.COUNT_SINGULAR' : 'PERSONS_PAGE.COUNT_PLURAL') | translate:{value:split.personList.numPersons} }}</p>
+		</ion-item>
+	</ion-list>
+
+	<div class="fab-spacer"></div>
+
+	<ion-fab left bottom>
+		<button ion-fab color="teal" (tap)="nextPage()">{{ 'PERSONS_PAGE.NEXT_PAGE' | translate }}</button>
+	</ion-fab>
+
+	<ion-fab right bottom>
+		<button ion-fab color="teal" (tap)="addPerson()">
+			<ion-icon name="person"></ion-icon>
+		</button>
+	</ion-fab>
+
+</ion-content>

@@ -164,7 +164,7 @@ export class Split extends IDName implements ISplitReadonly {
 	personAdd(name: string): IPersonReadonly { return this._personList.add(name) }
 	personSetName(person: IPersonReadonly, name: string) { return this._personList.setName(person as Person, name) }
 	personSetPooledAmount(person: IPersonReadonly, value: number) { return this._personList.setPooledAmount(person as Person, value) }
-	personRemove(person: IPersonReadonly) { return this._personList.remove(person as Person) && this._orders.removePerson(person as Person) }
+	personRemove(person: IPersonReadonly) { return this._personList.remove(person as Person) && (this._orders.removePerson(person as Person) || true) }
 	personMarkDependant(person: IPersonReadonly, dependant: IPersonReadonly, value: boolean) { return this._personList.markAsDependantFor(person as Person, dependant as Person, value) }
 	personGetPossibleDependants(person: IPersonReadonly) { return this.personList.getPossibleDependantsFor(person) }
 	personsSort() { this._personList.sort() }
