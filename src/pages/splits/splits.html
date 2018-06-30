@@ -1,0 +1,38 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'SPLITS_PAGE.TITLE' | translate }}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="padding">
+		<ion-item (tap)="newSplit()">
+			<ion-icon name="add" color="teal" item-start></ion-icon>
+			<h1>{{ 'SPLITS_PAGE.NEW_SPLIT' | translate }}</h1>
+			<p text-wrap>{{ 'SPLITS_PAGE.TIP_NEW_SPLIT' | translate }}</p>
+		</ion-item>
+	</ion-card>
+
+	<div *ngIf="list && list.length !== 0">
+		<ion-list class="compact no-border-top">
+			<ion-item>
+				<p>{{ 'SPLITS_PAGE.SAVED_SPLITS' | translate }}</p>
+			</ion-item>
+		</ion-list>
+		<ion-list>
+			<ion-item *ngFor="let entry of list" (tap)="loadSplit(entry)" (press)="showActions(entry)">
+				<ion-icon *ngIf="isComplete(entry)" name="checkmark" color="teal" item-end></ion-icon>
+				<h2>{{ entry.name }}</h2>
+				<p>{{ entry.timestamp | date:'MMMM d, yyyy'}} at {{ entry.timestamp | date: 'h:mm a' | lowercase }}</p>
+			</ion-item>
+		</ion-list>
+		<ion-list class="compact no-border-bottom">
+			<ion-item>
+				<p>{{ 'SPLITS_PAGE.TIP_MORE_OPTIONS' | translate }}</p>
+			</ion-item>
+		</ion-list>
+	</div>
+
+</ion-content>

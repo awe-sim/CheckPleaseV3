@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MyApp {
 
-	rootPage = 'HomePage';
+	rootPage = 'SplitsPage';
 
 	constructor(
 		platform         : Platform,
