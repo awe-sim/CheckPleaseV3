@@ -175,7 +175,7 @@ export abstract class BasePage {
 		let ret = this.TRANSLATIONS;
 		if (ret) {
 			for (let k of keys) {
-				if (!(k in ret)) return key;
+				if (typeof ret === 'string' || !(k in ret)) return key;
 				ret = ret[k];
 			}
 		}
