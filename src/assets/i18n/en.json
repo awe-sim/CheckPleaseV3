@@ -83,8 +83,8 @@
 	},
 
 	"PERSONS_PAGE": {
-		"TITLE"                 : "Who's present at the table?",
-		"TIP_ADD"               : "Tap the #person# button to add a few persons.",
+		"TITLE"                 : "Who's at the table?",
+		"TIP_ADD"               : "Tap the #contact# button to add a few persons.",
 		"TIP_MORE_OPTIONS"      : "Tap on a person for more options.",
 		"COUNT_SINGULAR"        : "1 person",
 		"COUNT_PLURAL"          : "{{ value }} persons",
