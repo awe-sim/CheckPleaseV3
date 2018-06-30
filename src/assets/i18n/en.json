@@ -1,3 +1,21 @@
 {
 
+
+	"BASE_PAGE": {
+		"BUTTON_ADD"             : "Add",
+		"BUTTON_ADD_ANOTHER"     : "Add Another",
+		"BUTTON_CANCEL"          : "Cancel",
+		"BUTTON_DELETE"          : "Delete",
+		"BUTTON_DEPENDANTS"      : "Mark Dependants",
+		"BUTTON_DISCARD"         : "Discard",
+		"BUTTON_OPEN"            : "Open",
+		"BUTTON_POOL_AMOUNT"     : "Pool Amount",
+		"BUTTON_RENAME"          : "Rename",
+		"BUTTON_RETURN_CHANGE"   : "Return Change",
+		"BUTTON_SAVE"            : "Save",
+		"ERR_BLANK_SPLIT_NAME"   : "Please enter a name for this split",
+		"PLACEHOLDER_SPLIT_NAME" : "Split Name",
+		"UNSAVED_CHANGES"        : "Unsaved Changes"
+	}
+
 }
