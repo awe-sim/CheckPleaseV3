@@ -171,6 +171,7 @@ export class Split extends IDName implements ISplitReadonly {
 	personsClear() { this._personList.clear(); this._orders.clear() }
 
 	itemAdd(name: string, amount: number, quantity: number) { return this._itemList.add(name, amount, quantity) }
+	itemSetName(item: IItemReadonly, name: string) { return this._itemList.setName(item as Item, name) }
 	itemSetAmount(item: IItemReadonly, value) { return this._itemList.setAmount(item as Item, value) }
 	itemSetQuantity(item: IItemReadonly, value) { return this._itemList.setQuantity(item as Item, value) }
 	itemRemove(item: IItemReadonly) { return this._itemList.remove(item as Item) && this._orders.removeItem(item as Item) }

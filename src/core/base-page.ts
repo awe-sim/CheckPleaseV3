@@ -9,7 +9,9 @@ interface IActionButtons {
 	DELETE        : ActionButton;
 	DEPENDANTS    : ActionButton;
 	DISCARD       : ActionButton;
+	EDIT          : ActionButton;
 	OPEN          : ActionButton;
+	ORDERS        : ActionButton;
 	POOL_AMOUNT   : ActionButton;
 	RENAME        : ActionButton;
 	RETURN_CHANGE : ActionButton;
@@ -88,7 +90,9 @@ export abstract class BasePage {
 								DEPENDANTS    : new ActionButton(this.translate('BASE_PAGE.BUTTON_DEPENDANTS'),    'contacts'),
 								DELETE        : new ActionButton(this.translate('BASE_PAGE.BUTTON_DELETE'),        'trash'),
 								DISCARD       : new ActionButton(this.translate('BASE_PAGE.BUTTON_DISCARD'),       'trash'),
+								EDIT          : new ActionButton(this.translate('BASE_PAGE.BUTTON_EDIT'),          'create'),
 								OPEN          : new ActionButton(this.translate('BASE_PAGE.BUTTON_OPEN'),          'document'),
+								ORDERS        : new ActionButton(this.translate('BASE_PAGE.BUTTON_ORDERS'),        'cafe'),
 								POOL_AMOUNT   : new ActionButton(this.translate('BASE_PAGE.BUTTON_POOL_AMOUNT'),   'cash'),
 								RENAME        : new ActionButton(this.translate('BASE_PAGE.BUTTON_RENAME'),        'create'),
 								RETURN_CHANGE : new ActionButton(this.translate('BASE_PAGE.BUTTON_RETURN_CHANGE'), 'cash'),

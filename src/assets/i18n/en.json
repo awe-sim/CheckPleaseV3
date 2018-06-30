@@ -6,8 +6,10 @@
 		"BUTTON_CANCEL"          : "Cancel",
 		"BUTTON_DELETE"          : "Delete",
 		"BUTTON_DEPENDANTS"      : "Mark Dependants",
+		"BUTTON_EDIT"            : "Edit",
 		"BUTTON_DISCARD"         : "Discard",
 		"BUTTON_OPEN"            : "Open",
+		"BUTTON_ORDERS"          : "Mark Orders",
 		"BUTTON_POOL_AMOUNT"     : "Pool Amount",
 		"BUTTON_RENAME"          : "Rename",
 		"BUTTON_RETURN_CHANGE"   : "Return Change",
@@ -87,7 +89,7 @@
 		"TIP_ADD"               : "Tap the #contact# button to add a few persons.",
 		"TIP_MORE_OPTIONS"      : "Tap on a person for more options.",
 		"COUNT_SINGULAR"        : "1 person",
-		"COUNT_PLURAL"          : "{{ value }} persons",
+		"COUNT_PLURAL"          : "{{ count }} persons",
 		"COVERING_EXPENSES_FOR" : "Covering expenses for {{ names }}",
 		"ACTION_TITLE"          : "{{ name }}",
 		"ADD_TITLE"             : "Add Person",
@@ -107,6 +109,30 @@
 	"PERSON_DEPENDANTS_PAGE": {
 		"COVERING_EXPENSES_FOR": "Covering expenses for",
 		"TITLE": "Financing someone?"
+	},
+
+	"ITEMS_PAGE": {
+		"TITLE"                 : "What's been ordered?",
+		"TIP_ADD"               : "Tap the #cafe# button to add a few items.",
+		"TIP_MORE_OPTIONS"      : "Tap on an item for more options.",
+		"COUNT_SINGULAR"        : "1 item",
+		"COUNT_PLURAL"          : "{{ count }} items",
+		"TOTAL"                 : "Total {{ total }}",
+		"ACTION_TITLE"          : "{{ name }}",
+		"ADD_TITLE"             : "Add Item",
+		"ADD_MESSAGE"           : "",
+		"EDIT_TITLE"            : "Edit Item",
+		"EDIT_MESSAGE"          : "",
+		"NAME_PLACEHOLDER"      : "Description",
+		"AMOUNT_PLACEHOLDER"    : "Unit price",
+		"QUANTITY_PLACEHOLDER"  : "Quantity",
+		"REMOVE_TITLE"          : "{{ name }}",
+		"REMOVE_MESSAGE"        : "Are you sure you want to remove this item?",
+		"ERR_BLANK_NAME"        : "Please enter a NAME",
+		"ERR_INVALID_AMOUNT"    : "Please enter a valid UNIT PRICE",
+		"ERR_INVALID_QUANTITY"  : "Please enter a valid QUANTITY",
+		"ERR_NEXT_PAGE"         : "Please add a few items first!",
+		"NEXT_PAGE"             : "NEXT"
 	}
 
 }

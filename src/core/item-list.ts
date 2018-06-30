@@ -7,7 +7,7 @@ export interface IItemListReadonly {
 	readonly isDirty     : boolean;
 	readonly items       : ReadonlyArray<IItemReadonly>;
 	readonly itemsMap    : IMapReadonly<IItemReadonly>;
-	readonly numItems    : number;
+	readonly count       : number;
 	readonly totalAmount : number;
 	toJSON(): IItem[];
 }
@@ -21,7 +21,7 @@ export class ItemList implements IItemListReadonly {
 	get isDirty() { return this._isDirty }
 	get items(): ReadonlyArray<Item> { return this._items }
 	get itemsMap(): IMapReadonly<Item> { return this._itemsMap }
-	get numItems() { return this.items.length }
+	get count() { return this.items.length }
 	get totalAmount() { return this.items.map(it => it.total).reduce((sum, value) => sum + value, 0) }
 
 	toJSON(): IItem[] {
@@ -52,6 +52,12 @@ export class ItemList implements IItemListReadonly {
 		if (!this.itemsMap[item.id]) return false;
 		this._items.splice(this.items.indexOf(item), 1);
 		delete this._itemsMap[item.id];
+		this._isDirty = true;
+		return true;
+	}
+	setName(item: Item, value: string): boolean {
+		if (item.name === value) return false;
+		item.name = value;
 		this._isDirty = true;
 		return true;
 	}

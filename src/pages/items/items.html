@@ -1,0 +1,50 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'ITEMS_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-list class="no-border-top">
+		<ion-item>
+			<h2 text-wrap class="note" *ngIf="split.itemList.count === 0" [innerHTML]="'ITEMS_PAGE.TIP_ADD' | translate | iconHtml"></h2>
+			<h2 text-wrap class="note" *ngIf="split.itemList.count !== 0" [innerHTML]="'ITEMS_PAGE.TIP_MORE_OPTIONS' | translate | iconHtml"></h2>
+		</ion-item>
+	</ion-list>
+
+	<ion-list *ngIf="split.itemList.count !== 0">
+		<ion-item *ngFor="let item of split.itemList.items" (tap)="showActions(item)">
+			<ion-avatar item-start text-avatar [id]="item.id" [text]="item.initials" shape="SQUARE"></ion-avatar>
+			<h2 *ngIf="item.quantity === 1">{{ item.name }}</h2>
+			<h2 *ngIf="item.quantity !== 1">{{ item.name }} &times; {{ item.quantity }}</h2>
+			<h2 item-right>{{ item.total }}</h2>
+		</ion-item>
+	</ion-list>
+	<ion-list class="compact" *ngIf="split.itemList.count !== 0">
+		<ion-item>
+			<p *ngIf="split.itemList.count === 1">{{ 'ITEMS_PAGE.COUNT_SINGULAR' | translate }}</p>
+			<p *ngIf="split.itemList.count !== 1">{{ 'ITEMS_PAGE.COUNT_PLURAL' | translate:{ count: split.itemList.numItems } }}</p>
+			<p item-right>{{ 'ITEMS_PAGE.TOTAL' | translate:{ total: split.itemList.totalAmount.toFixed(2).replace('.00','') } }}</p>
+		</ion-item>
+	</ion-list>
+
+	<div class="fab-spacer"></div>
+
+	<ion-fab left bottom>
+		<button ion-fab color="teal" (tap)="nextPage()">{{ 'ITEMS_PAGE.NEXT_PAGE' | translate }}</button>
+	</ion-fab>
+
+	<ion-fab right bottom>
+		<button ion-fab color="teal" (tap)="addItem()">
+			<ion-icon name="cafe"></ion-icon>
+		</button>
+	</ion-fab>
+
+</ion-content>

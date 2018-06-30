@@ -32,7 +32,8 @@
 	</ion-list>
 	<ion-list class="compact" *ngIf="split.personList.numFinancers !== 0">
 		<ion-item>
-			<p>{{ (split.personList.numPersons === 1 ? 'PERSONS_PAGE.COUNT_SINGULAR' : 'PERSONS_PAGE.COUNT_PLURAL') | translate:{value:split.personList.numPersons} }}</p>
+			<p *ngIf="split.personList.numPersons === 1">{{ 'PERSONS_PAGE.COUNT_SINGULAR' | translate }}</p>
+			<p *ngIf="split.personList.numPersons !== 1">{{ 'PERSONS_PAGE.COUNT_PLURAL' | translate:{ count: split.personList.numPersons } }}</p>
 		</ion-item>
 	</ion-list>
 
