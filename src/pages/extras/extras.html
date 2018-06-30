@@ -1,0 +1,50 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'EXTRAS_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-card class="padding">
+		<ion-card-content>
+			<form>
+				<ion-item>
+					<h2>{{ 'EXTRAS_PAGE.SUB_TOTAL' | translate }}</h2>
+					<h2 item-right>{{ split.itemList.totalAmount | number:'1.0-2' }}</h2>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{ 'EXTRAS_PAGE.EXTRAS' | translate }}</ion-label>
+					<ion-input text-right type="number" [(ngModel)]="split.extras" [ngModelOptions]="{standalone:true}" [placeholder]="'EXTRAS_PAGE.EXTRAS_PLACEHOLDER' | translate"></ion-input>
+				</ion-item>
+				<ion-item>
+					<h2>{{ 'EXTRAS_PAGE.GRAND_TOTAL' | translate }}</h2>
+					<h2 item-right>{{ split.grandTotal | number:'1.0-2' }}</h2>
+				</ion-item>
+			</form>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-list class="compact no-border-top no-border-bottom">
+		<ion-item text-wrap>
+			<p text-justify [innerHTML]="'EXTRAS_PAGE.ABOUT_EXTRAS' | translate"></p>
+		</ion-item>
+	</ion-list>
+	<br>
+
+	<div class="fab-spacer"></div>
+
+	<ion-fab left bottom>
+		<button ion-fab color="teal" *ngIf="split.extras === 0" (tap)="nextPage()">{{ 'EXTRAS_PAGE.SKIP_PAGE' | translate }}</button>
+		<button ion-fab color="teal" *ngIf="split.extras > 0"   (tap)="nextPage()">{{ 'EXTRAS_PAGE.NEXT_PAGE' | translate }}</button>
+	</ion-fab>
+
+
+</ion-content>

@@ -142,6 +142,16 @@
 		"TITLE": "Who's ordered what?",
 		"SELECT_ALL": "Select All",
 		"SELECT_NONE": "Select None"
+	},
+
+	"EXTRAS_PAGE": {
+		"TITLE": "Taxes, any?",
+		"SUB_TOTAL": "Sub Total",
+		"EXTRAS": "Extras",
+		"GRAND_TOTAL": "Grand Total",
+		"ABOUT_EXTRAS": "<b>Extras</b> can include additional expenses like <b>taxes</b>, <b>credit card charges</b>, or <b>tip</b> for then waiter. These will be split on each person proportional to what they ordered. People who ordered more items will have to pay a greater portion of these extras, and vice versa.",
+		"SKIP_PAGE": "SKIP",
+		"NEXT_PAGE": "NEXT"
 	}
 
 }
