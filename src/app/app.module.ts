@@ -11,7 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { IonicStorageModule, Storage } from '@ionic/storage';
-import { Settings } from '../utils';
+import { SettingsCtrl } from '../utils';
 
 const TRANSLATIONS_PATH_PREFIX = './assets/i18n/';
 const TRANSLATIONS_PATH_SUFFIX = '.json';
@@ -34,7 +34,7 @@ const DEFAULT_SETTINGS = { };
 		StatusBar,
 		SplashScreen,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
-		{ provide: Settings, useFactory: (storage: Storage) => new Settings(storage, KEY_SETTINGS, DEFAULT_SETTINGS), deps: [ Storage ] },
+		{ provide: SettingsCtrl, useFactory: (storage: Storage) => new SettingsCtrl(storage, KEY_SETTINGS, DEFAULT_SETTINGS), deps: [ Storage ] },
 	]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
-export class Settings {
+export class SettingsCtrl {
 
 	private _key      : string;
 	private _defaults : any;
