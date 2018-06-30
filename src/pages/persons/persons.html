@@ -23,7 +23,7 @@
 		<ion-item (tap)="showActions(financer)">
 			<ion-avatar item-start text-avatar [id]="financer.id" [text]="financer.initials" shape="CIRCLE"></ion-avatar>
 			<h2>{{ financer.name }}</h2>
-			<p text-wrap *ngIf="financer.numDependants !== 0">{{ 'PERSONS_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(financer.dependants, 0)} }}</p>
+			<p text-wrap *ngIf="financer.numDependants !== 0">{{ 'PERSONS_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(financer.dependants, split.personList, 0)} }}</p>
 		</ion-item>
 		<ion-item *ngFor="let dependant of financer.dependants" (tap)="showActions(dependant)">
 			<ion-avatar item-start text-avatar [id]="financer.id" [text]="dependant.initials" shape="CIRCLE" size="SMALL"></ion-avatar>

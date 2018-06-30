@@ -115,9 +115,11 @@
 		"TITLE"                 : "What's been ordered?",
 		"TIP_ADD"               : "Tap the #cafe# button to add a few items.",
 		"TIP_MORE_OPTIONS"      : "Tap on an item for more options.",
-		"COUNT_SINGULAR"        : "1 item",
-		"COUNT_PLURAL"          : "{{ count }} items",
-		"TOTAL"                 : "Total {{ total }}",
+		"ORDERED_BY"            : "Ordered by",
+		"SHARED_BY"             : "Shared by",
+		"SINGULAR"              : "item",
+		"PLURAL"                : "items",
+		"TOTAL"                 : "Total =",
 		"ACTION_TITLE"          : "{{ name }}",
 		"ADD_TITLE"             : "Add Item",
 		"ADD_MESSAGE"           : "",
@@ -131,8 +133,15 @@
 		"ERR_BLANK_NAME"        : "Please enter a NAME",
 		"ERR_INVALID_AMOUNT"    : "Please enter a valid UNIT PRICE",
 		"ERR_INVALID_QUANTITY"  : "Please enter a valid QUANTITY",
-		"ERR_NEXT_PAGE"         : "Please add a few items first!",
+		"ERR_NO_ITEMS"          : "Please add a few items first!",
+		"ERR_ORPHAN_ITEMS"      : "Please mark orders for all items first!",
 		"NEXT_PAGE"             : "NEXT"
+	},
+
+	"ITEM_ORDERS_PAGE": {
+		"TITLE": "Who's ordered what?",
+		"SELECT_ALL": "Select All",
+		"SELECT_NONE": "Select None"
 	}
 
 }

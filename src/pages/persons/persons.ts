@@ -65,6 +65,7 @@ export class PersonsPage extends BasePage {
 			case this.ALERT_BUTTONS.ADD:
 			case this.ALERT_BUTTONS.ADD_ANOTHER:
 				this.split.personAdd(ret.data.name.trim());
+				this.split.personsSort();
 				break;
 		}
 		if (ret.button === this.ALERT_BUTTONS.ADD_ANOTHER) this.addPerson();

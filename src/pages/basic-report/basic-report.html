@@ -58,7 +58,7 @@
 						<p>{{ 'BASIC_REPORT_PAGE.TIP_TAP_FOR_OPTIONS' | translate }}</p>
 					</ion-item>
 					<ion-item class="compact" *ngIf="person.numDependants !== 0">
-						<p text-wrap>{{ 'BASIC_REPORT_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(person.dependants, 0)} }}</p>
+						<p text-wrap>{{ 'BASIC_REPORT_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(person.dependants, split.personList, 0)} }}</p>
 					</ion-item>
 					<ion-item class="compact">
 						<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_DUE' | translate }}</h2>

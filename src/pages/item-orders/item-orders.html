@@ -1,0 +1,38 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'ITEM_ORDERS_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="checkmark"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-card class="padding">
+		<ion-item>
+			<ion-avatar item-start text-avatar [id]="item.id" [text]="item.initials" shape="SQUARE"></ion-avatar>
+			<h2>{{ item.name }}</h2>
+			<p *ngIf="item.quantity > 1">= {{ item.amount | number:'1.0-2' }} &times; {{ item.quantity }}</p>
+			<h2 item-right>{{ item.total | number:'1.0-2' }}</h2>
+		</ion-item>
+	</ion-card>
+
+	<ion-list class="compact">
+		<ion-item>
+			<button item-left  ion-button clear color="teal" (tap)="selectAll()" >{{ 'ITEM_ORDERS_PAGE.SELECT_ALL'  | translate }}</button>
+			<button item-right ion-button clear color="teal" (tap)="selectNone()">{{ 'ITEM_ORDERS_PAGE.SELECT_NONE' | translate }}</button>
+		</ion-item>
+	</ion-list>
+	<ion-list>
+		<ion-item *ngFor="let opt of options">
+			<ion-avatar item-start text-avatar [id]="opt.person.id" [text]="opt.person.initials" shape="CIRCLE"></ion-avatar>
+			<ion-label>{{ opt.person.name }}</ion-label>
+			<ion-checkbox item-end color="teal" [(ngModel)]="opt.checked"></ion-checkbox>
+		</ion-item>
+	</ion-list>
+
+</ion-content>

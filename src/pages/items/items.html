@@ -24,14 +24,16 @@
 			<ion-avatar item-start text-avatar [id]="item.id" [text]="item.initials" shape="SQUARE"></ion-avatar>
 			<h2 *ngIf="item.quantity === 1">{{ item.name }}</h2>
 			<h2 *ngIf="item.quantity !== 1">{{ item.name }} &times; {{ item.quantity }}</h2>
-			<h2 item-right>{{ item.total }}</h2>
+			<p text-wrap *ngIf="split.orders.getOrdersForItem(item).length === 1">{{ 'ITEMS_PAGE.ORDERED_BY' | translate:{ names: ListHelpers.names(split.orders.getOrdersForItem(item), split.personList) } }}</p>
+			<p text-wrap *ngIf="split.orders.getOrdersForItem(item).length > 1">{{ 'ITEMS_PAGE.SHARED_BY' | translate:{ names: ListHelpers.names(split.orders.getOrdersForItem(item), split.personList, 2) } }}</p>
+			<h2 item-right>{{ item.total | number:'1.0-2' }}</h2>
+			<ion-icon *ngIf="split.orders.getOrdersForItem(item).length === 0" item-right name="warning" color="danger"></ion-icon>
 		</ion-item>
 	</ion-list>
 	<ion-list class="compact" *ngIf="split.itemList.count !== 0">
 		<ion-item>
-			<p *ngIf="split.itemList.count === 1">{{ 'ITEMS_PAGE.COUNT_SINGULAR' | translate }}</p>
-			<p *ngIf="split.itemList.count !== 1">{{ 'ITEMS_PAGE.COUNT_PLURAL' | translate:{ count: split.itemList.numItems } }}</p>
-			<p item-right>{{ 'ITEMS_PAGE.TOTAL' | translate:{ total: split.itemList.totalAmount.toFixed(2).replace('.00','') } }}</p>
+			<p>{{ split.itemList.count }} {{ (split.itemList.count === 1 ? 'ITEMS_PAGE.SINGULAR' : 'ITEMS_PAGE.PLURAL') | translate }}
+			<p item-right>{{ 'ITEMS_PAGE.TOTAL' | translate }} {{ split.itemList.totalAmount | number:'1.0-2' }}</p>
 		</ion-item>
 	</ion-list>
 

@@ -130,6 +130,7 @@ export class ItemsPage extends BasePage {
 			]
 		})
 	}
+
 	async removeItem(item: IItemReadonly) {
 		let data = { name: item.name };
 		this.presentAlert({
@@ -149,14 +150,18 @@ export class ItemsPage extends BasePage {
 	async itemOrders(item: IItemReadonly) {
 		let options = this.split.orders.getPossibleOrdersFor(item, this.split.personList);
 		this.pushPage('ItemOrdersPage', this.makeParams({
-			PARAM_ITEM    : item,
-			PARAM_OPTIONS : options,
+			PARAM_ITEM      : item,
+			PARAM_OPTIONS   : options,
 		}));
 	}
 
 	async nextPage() {
 		if (this.split.itemList.count === 0) {
-			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_NEXT_PAGE'), duration: 3000 });
+			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_NO_ITEMS'), duration: 3000 });
+			return;
+		}
+		if (this.split.orders.getOrphanItems(this.split.itemList).length !== 0) {
+			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_ORPHAN_ITEMS'), duration: 3000 });
 			return;
 		}
 		this.pushPage('ExtrasPage', this.makeParams());

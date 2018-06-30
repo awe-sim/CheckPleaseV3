@@ -150,7 +150,7 @@ export class Split extends IDName implements ISplitReadonly {
 		ret._stage      = json.stage;
 		ret._personList = PersonList.fromJSON(json.personList);
 		ret._itemList   = ItemList.fromJSON(json.itemList);
-		ret._orders     = Orders.fromJSON(json.orders);
+		ret._orders     = Orders.fromJSON(json.orders, ret.personList, ret.itemList);
 		ret._billAmount = json.billAmount;
 		ret._extras     = json.extras;
 		ret._math       = json.math;
@@ -179,7 +179,6 @@ export class Split extends IDName implements ISplitReadonly {
 	itemsClear() { this._itemList.clear(); this._orders.clear() }
 
 	orderMark(person: IPersonReadonly, item: IItemReadonly, value: boolean) { return this._orders.markOrder(person, item, value) }
-	ordersGetOrphans() { return this._orders.getOrphanItems(this._itemList) }
 	ordersClear() { this._orders.clear() }
 
 	private static async _loadEntries(storage: Storage, key: string): Promise<IMap<ISplitEntry>> {
@@ -275,8 +274,7 @@ export class Split extends IDName implements ISplitReadonly {
 			let personMap      : IMap<IMathAdvancedPerson>   = {};
 			Object.keys(this.itemList.itemsMap).forEach(itemID => {
 				let item    = this.itemList.itemsMap[itemID];
-				let persons = this.orders.getOrdersForItems(item, this._personList);
-				if (persons.length === 0) throw 'E_ORPHAN_ITEMS';
+				let persons = this.orders.getOrdersForItem(item);
 				itemOrdersMap[itemID]  = persons.map(it => it.id);
 				itemPerHeadMap[itemID] = item.total / persons.length;
 			})

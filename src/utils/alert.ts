@@ -89,7 +89,7 @@ export class AlertCtrl {
 				message               : options.message,
 				cssClass              : options.cssClass,
 				enableBackdropDismiss : options.enableBackdropDismiss,
-				inputs                : options.inputs.filter(it => !!it),
+				inputs                : (options.inputs || []).filter(it => !!it),
 				buttons               : (options.buttons || []).filter(it => !!it).map(it => {
 					if (typeof it === 'string') return {
 						text    : it,
