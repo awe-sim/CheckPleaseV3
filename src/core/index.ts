@@ -7,3 +7,4 @@ export { IPersonAssignment } from './person-assignment';
 export { Item, IItem, IItemReadonly } from './item';
 export { PersonList, IPersonListReadonly } from './person-list';
 export { ItemList, IItemListReadonly } from './item-list';
+export { Orders, IOrders, IOrdersReadonly } from './orders';
