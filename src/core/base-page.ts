@@ -170,7 +170,7 @@ export abstract class BasePage {
 		return params;
 	}
 
-	translate(key: string): string {
+	translate(key: string, params?: Object): string {
 		let keys = key.split('.');
 		let ret = this.TRANSLATIONS;
 		if (ret) {
@@ -179,15 +179,17 @@ export abstract class BasePage {
 				ret = ret[k];
 			}
 		}
+		Object.keys(params || {}).forEach(varName => {
+			console.log(params[varName]);
+			ret = ret.replace(new RegExp(`\{\{ *${varName} *\}\}`, 'g'), params[varName])
+		})
 		return ret;
 	}
 	async loadTranslations(keys: string, params?: Object): Promise<string>
 	async loadTranslations(keys: string[], params?: Object): Promise<Object>
 	async loadTranslations(keys: string | string[], params?: Object): Promise<string|Object> {
 		return new Promise(resolve => {
-			debugger;
 			this.translateSvc.get(keys, params).subscribe(values => {
-				debugger;
 				console.log('TRANSLATIONS', values);
 				resolve(values);
 			})
