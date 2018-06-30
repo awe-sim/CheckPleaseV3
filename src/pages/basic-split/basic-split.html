@@ -1,0 +1,58 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'BASIC_SPLIT_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-card class="padding">
+		<ion-card-content>
+			<form>
+				<ion-item>
+					<ion-label>{{ 'BASIC_SPLIT_PAGE.BILL_AMOUNT' | translate }}</ion-label>
+					<ion-input text-right type="number" [(ngModel)]="billAmount" [ngModelOptions]="{standalone:true}" [placeholder]="'BASIC_SPLIT_PAGE.BILL_AMOUNT_PLACEHOLDER' | translate"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{ 'BASIC_SPLIT_PAGE.EXTRAS' | translate }}</ion-label>
+					<ion-input text-right type="number" [(ngModel)]="extras" [ngModelOptions]="{standalone:true}" [placeholder]="'BASIC_SPLIT_PAGE.EXTRAS_PLACEHOLDER' | translate"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{ 'BASIC_SPLIT_PAGE.NUM_PERSONS' | translate }}</ion-label>
+					<ion-input text-right type="number" [(ngModel)]="numPersons" [ngModelOptions]="{standalone:true}" [placeholder]="'BASIC_SPLIT_PAGE.NUM_PERSONS_PLACEHOLDER' | translate"></ion-input>
+				</ion-item>
+				<ion-item>
+					<h2>{{ 'BASIC_SPLIT_PAGE.GRAND_TOTAL' | translate }}</h2>
+					<h2 item-right>{{ grandTotal | number:'1.0-2' }}</h2>
+				</ion-item>
+				<ion-item>
+					<h2>{{ 'BASIC_SPLIT_PAGE.COST_PER_HEAD' | translate }}</h2>
+					<h2 item-right>{{ numPersons === 0 ? 'N/A' : costPerHead | number:'1.0-2' }}</h2>
+				</ion-item>
+			</form>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-list class="compact no-border-top no-border-bottom">
+		<ion-item text-wrap>
+			<p text-justify [innerHTML]="'BASIC_SPLIT_PAGE.TIP_TRACK_CONTRIBUTIONS' | translate"></p>
+			<button ion-button large block color="teal" (tap)="onClickTrack()">{{ 'BASIC_SPLIT_PAGE.TRACK_CONTRIBUTIONS' | translate }}</button>
+		</ion-item>
+	</ion-list>
+	<br>
+
+	<ion-list class="compact no-border-top no-border-bottom">
+		<ion-item text-wrap>
+			<p text-justify [innerHTML]="'BASIC_SPLIT_PAGE.TIP_SWITCH_TYPE' | translate"></p>
+			<button ion-button large block color="teal" (tap)="onClickSwitch()">{{ 'BASIC_SPLIT_PAGE.SWITCH_TYPE' | translate }}</button>
+		</ion-item>
+	</ion-list>
+
+</ion-content>

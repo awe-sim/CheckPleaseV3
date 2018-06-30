@@ -31,6 +31,24 @@
 		"DELETE_MESSAGE"     : "Are you sure you want to delete this split?",
 		"ERR_BLANK_NAME"     : "Please enter a name!",
 		"EXIT_CONFIRMATION"  : "Hit the [ BACK ] key again to exit"
+	},
+
+	"BASIC_SPLIT_PAGE": {
+		"TITLE"                   : "Basic Split",
+		"BILL_AMOUNT"             : "Bill Amount",
+		"BILL_AMOUNT_PLACEHOLDER" : "Tap to set",
+		"EXTRAS"                  : "Extra Expenses",
+		"EXTRAS_PLACEHOLDER"      : "Tap to set",
+		"GRAND_TOTAL"             : "Grand Total",
+		"NUM_PERSONS"             : "Number Of Persons",
+		"NUM_PERSONS_PLACEHOLDER" : "Tap to set",
+		"COST_PER_HEAD"           : "Cost Per Head",
+		"SWITCH_TYPE"             : "Switch to Fair Split",
+		"TIP_SWITCH_TYPE"         : "With a bit of more information from you, <b>CheckPlease!</b> can also help you calculate each person's fair share.",
+		"TIP_TRACK_CONTRIBUTIONS" : "<b>CheckPlease!</b> can keep track of how much each person contributes. This will help you remember who <b>overpaid</b> or <b>underpaid</b>, so you can settle it amongst yourselves later.",
+		"TRACK_CONTRIBUTIONS"     : "Track Contributions",
+		"ERR_GRAND_TOTAL"         : "Please enter a valid \"BILL AMOUNT\" first!",
+		"ERR_NUM_PERSONS"         : "Please enter the \"NUMBER OF PERSONS\" first!"
 	}
 
 }
