@@ -1,0 +1,23 @@
+.text-avatar {
+
+	width: 4rem;
+	height: 4rem;
+	color: white;
+	display: flex;
+	font-size: 1.8rem;
+	justify-content: center;
+
+	&.circle {
+		border-radius: 50%;
+	}
+	&.small {
+		width: 3rem;
+		height: 3rem;
+		margin: 0.5rem;
+	}
+
+	.text-avatar-text {
+		align-self: center;
+	}
+
+}
