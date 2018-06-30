@@ -60,9 +60,9 @@ export class BasicReportPage extends BasePage {
 		let maxValue = Math.min(this.math.change, personMath.change);
 		let data = {
 			name      : person.name,
-			changeDue : personMath.change.toFixes(2).replace('.00',''),
-			maxChange : maxValue.toFixes(2).replace('.00',''),
-			change    : this.math.change.toFixes(2).replace('.00',''),
+			changeDue : personMath.change.toFixed(2).replace('.00',''),
+			maxChange : maxValue.toFixed(2).replace('.00',''),
+			change    : this.math.change.toFixed(2).replace('.00',''),
 		}
 		await this.presentAlert({
 			title   : this.translate('BASIC_REPORT_PAGE.RETURN_CHANGE_TITLE', data),
