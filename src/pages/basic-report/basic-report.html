@@ -1,0 +1,87 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'BASIC_REPORT_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="home" size="large"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-card class="padding">
+		<ion-list>
+			<ion-item *ngIf="split.isSaved">
+				<ion-avatar item-left text-avatar [id]="split.id" [text]="split.initials" shape="SQUARE" size="LARGE"></ion-avatar>
+				<h1>{{ split.name }}</h1>
+				<p>{{ split.timestamp | date:'MMMM d, yyyy'}} at {{ split.timestamp | date: 'h:mm a' | lowercase }}</p>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'BASIC_REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
+				<h1 item-right>{{ math.grandTotal | number:'1.0-2' }}</h1>
+			</ion-item>
+			<ion-item class="compact">
+				<p>{{ 'BASIC_REPORT_PAGE.NUM_PERSONS' | translate }}</p>
+				<p item-right>{{ math.numPersons }}</p>
+			</ion-item>
+			<ion-item class="compact">
+				<p>{{ 'BASIC_REPORT_PAGE.COST_PER_HEAD' | translate }}</p>
+				<p item-right>{{ math.basic.perHead | number:'1.0-2' }}</p>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_POOLED' | translate }}</h2>
+				<h1 item-right>{{ math.amountPooled | number:'1.0-2' }}</h1>
+			</ion-item>
+			<ion-item *ngIf="math.change >= 0">
+				<h2>{{ 'BASIC_REPORT_PAGE.CHANGE' | translate }}</h2>
+				<ion-icon item-right color="teal" name="checkmark"></ion-icon>
+				<h1 item-right>{{ math.change | number:'1.0-2' }}</h1>
+			</ion-item>
+			<ion-item *ngIf="math.change < 0">
+				<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_PENDING' | translate }}</h2>
+				<ion-icon item-right class="danger" name="warning"></ion-icon>
+				<h1 item-right>{{ -math.change | number:'1.0-2' }}</h1>
+			</ion-item>
+		</ion-list>
+	</ion-card>
+
+	<ion-card class="padding" *ngFor="let fID of math.basic.financerIDs">
+		<span *ngVar="split.personList.personsMap[fID] as person">
+			<span *ngVar="math.basic.financerMap[fID] as personMath">
+				<ion-list (tap)="showActions(person, personMath)">
+					<ion-item>
+						<ion-avatar item-left text-avatar [id]="person.id" [text]="person.initials" shape="CIRCLE" size="LARGE"></ion-avatar>
+						<h1>{{ person.name }}</h1>
+						<p>{{ 'BASIC_REPORT_PAGE.TIP_TAP_FOR_OPTIONS' | translate }}</p>
+					</ion-item>
+					<ion-item class="compact" *ngIf="person.numDependants !== 0">
+						<p text-wrap>{{ 'BASIC_REPORT_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(person.dependants, 0)} }}</p>
+					</ion-item>
+					<ion-item class="compact">
+						<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_DUE' | translate }}</h2>
+						<p *ngIf="person.numDependants !== 0">{{ 'BASIC_REPORT_PAGE.AMOUNT_DUE_MATH' | translate:{ perHead: math.basic.perHead.toFixed(2).replace('.00',''), numPersons: 1 + person.numDependants } }}</p>
+						<h2 item-right>{{ personMath.grandTotal | number:'1.0-2' }}</h2>
+					</ion-item>
+					<ion-item class="compact">
+						<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_POOLED' | translate }}</h2>
+						<h2 item-right>{{ personMath.amountPooled | number:'1.0-2' }}</h2>
+					</ion-item>
+					<ion-item *ngIf="personMath.change >= 0">
+						<h2>{{ 'BASIC_REPORT_PAGE.CHANGE' | translate }}</h2>
+						<ion-icon item-right color="teal" name="checkmark"></ion-icon>
+						<h1 item-right>{{ personMath.change | number:'1.0-2' }}</h1>
+					</ion-item>
+					<ion-item *ngIf="personMath.change < 0">
+						<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_PENDING' | translate }}</h2>
+						<ion-icon item-right class="danger" name="warning"></ion-icon>
+						<h1 item-right>{{ -personMath.change | number:'1.0-2' }}</h1>
+					</ion-item>
+				</ion-list>
+			</span>
+		</span>
+	</ion-card>
+
+</ion-content>
