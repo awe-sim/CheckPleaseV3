@@ -216,8 +216,8 @@ export abstract class BasePage {
 		}
 		else {
 			this.presentActions({
-				title: this.translate('BASE_PAGE.UNSAVED_CHANGES'),
-				buttons: [
+				title   : this.translate('BASE_PAGE.ACTION_TITLE'),
+				buttons : [
 					this.ACTION_BUTTONS.SAVE.onBeforeDismiss(() => {
 						if (this.isSaved()) {
 							if (this.isDirty()) this.save();
@@ -225,7 +225,9 @@ export abstract class BasePage {
 						}
 						else {
 							this.presentAlert({
-								inputs: [{ type: 'text', name: 'name', placeholder: this.translate('BASE_PAGE.PLACEHOLDER_SPLIT_NAME') }],
+								title   : this.translate('BASE_PAGE.SAVE_TITLE'),
+								message : this.translate('BASE_PAGE.SAVE_MESSAGE'),
+								inputs: [{ type: 'text', name: 'name', placeholder: this.translate('BASE_PAGE.SAVE_PLACEHOLDER') }],
 								buttons: [
 									this.ALERT_BUTTONS.CANCEL,
 									this.ALERT_BUTTONS.SAVE

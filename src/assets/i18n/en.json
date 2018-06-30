@@ -13,8 +13,10 @@
 		"BUTTON_RETURN_CHANGE"   : "Return Change",
 		"BUTTON_SAVE"            : "Save",
 		"ERR_BLANK_SPLIT_NAME"   : "Please enter a name for this split",
-		"PLACEHOLDER_SPLIT_NAME" : "Split Name",
-		"UNSAVED_CHANGES"        : "Unsaved Changes"
+		"ACTION_TITLE"           : "Unsaved Changes",
+		"SAVE_TITLE"             : "",
+		"SAVE_MESSAGE"           : "",
+		"SAVE_PLACEHOLDER"       : "Enter name"
 	},
 
 	"SPLITS_PAGE": {
