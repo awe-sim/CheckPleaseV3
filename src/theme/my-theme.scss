@@ -1,0 +1,98 @@
+$colors: (
+	primary:    #488aff,
+	secondary:  #32db64,
+	danger:     #f53d3d,
+	light:      #f4f4f4,
+	dark:       #222,
+	teal:       #008080
+);
+
+//	MAKE ACTION SHEET TITLE HAVE A BORDER
+.action-sheet-group {
+	.action-sheet-title {
+		border-bottom: 1px solid #dedede;
+	}
+}
+
+//	MAKE CARDS PADDED WITHOUT PADDING CONTAINER
+ion-card.card.card-md.padding {
+	margin: 26px;
+	width: calc(100% - 52px);
+}
+
+//	MAKE ALERT STYLES
+ion-alert {
+	.alert-input:focus {
+		border-bottom: 2px solid #008080 !important;
+	}
+// 	.alert-message {
+// 		padding-bottom: 0 !important;
+// 	}
+// 	.alert-input-group {
+// 		padding-bottom: 0 !important;
+// 	}
+	[aria-checked=true] .alert-checkbox-icon {
+		background-color: #008080 !important;
+		border-color: #008080 !important;
+	}
+	.alert-button-default {
+		color: #008080 !important;
+	}
+}
+
+//	MAKE DANGER BUTTONS RED
+.danger {
+	color: #dd0000 !important;
+}
+
+//	MAKE HOME BUTTON LARGER
+ion-navbar {
+	ion-icon {
+		font-size: 1.8em;
+	}
+}
+
+//	MAKE ION_LIST BORDERS CONSISTENT
+ion-list {
+	border-top: 1px solid #dedede !important;
+	border-bottom: 1px solid #dedede !important;
+	margin-bottom: 0 !important;
+	&.no-border-top {
+		border-top: 0 !important;
+	}
+	&.no-border-bottom {
+		border-bottom: 0 !important;
+	}
+	& + ion-list {
+		color: red !important;
+	}
+}
+ion-list.compact ion-item, ion-item.compact {
+	min-height: 1.5rem;
+	margin-top: 3px;
+	ion-label {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	[item-right],[item-left] {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+ion-card ion-list {
+	border-top: 0 !important;
+	border-bottom: 0 !important;
+	ion-item:not(:last-child) {
+		border-bottom: 1px solid #dedede;
+	}
+}
+
+//	MAKE NOTE P HAVE MARGINS
+.note {
+	margin: 16px;
+}
+
+//	ALLOW PAGES WITH ION_FAB BUTTONS SCROLL A BIT MORE
+div.fab-spacer {
+	margin-bottom: 76px;
+}
