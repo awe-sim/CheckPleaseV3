@@ -102,10 +102,11 @@ export class SplitsPage extends BasePage {
 	}
 
 	async renameSplit(entry: ISplitEntry) {
+		let data = { name: entry.name };
 		await this.presentAlert({
-			title   : this.translate('SPLITS_PAGE.RENAME_TITLE', { name: entry.name }),
-			message : this.translate('SPLITS_PAGE.RENAME_MESSAGE', { name: entry.name }),
-			inputs  : [{ type: 'text', name: 'name', placeholder: this.translate('SPLITS_PAGE.RENAME_PLACEHOLDER', { name: entry.name }), value: entry.name }],
+			title   : this.translate('SPLITS_PAGE.RENAME_TITLE', data),
+			message : this.translate('SPLITS_PAGE.RENAME_MESSAGE', data),
+			inputs  : [{ type: 'text', name: 'name', placeholder: this.translate('SPLITS_PAGE.RENAME_PLACEHOLDER', data), value: entry.name }],
 			buttons : [
 				this.ALERT_BUTTONS.RENAME.onBeforeDismiss(async(data) => {
 					let name = data.name.trim();
@@ -118,9 +119,10 @@ export class SplitsPage extends BasePage {
 		})
 	}
 	async deleteSplit(entry: ISplitEntry) {
+		let data = { name: entry.name };
 		await this.presentAlert({
-			title   : this.translate('SPLITS_PAGE.DELETE_TITLE', { name: entry.name }),
-			message : this.translate('SPLITS_PAGE.DELETE_MESSAGE', { name: entry.name }),
+			title   : this.translate('SPLITS_PAGE.DELETE_TITLE', data),
+			message : this.translate('SPLITS_PAGE.DELETE_MESSAGE', data),
 			buttons : [
 				this.ALERT_BUTTONS.DELETE.onBeforeDismiss(async(data) => {
 					await Split.remove(this.STORAGE, BasePage.STORAGE_KEY, entry.id);
