@@ -125,7 +125,7 @@
 	"ITEMS_PAGE": {
 		"TITLE"                : "What's been ordered?",
 		"TIP_ADD"              : "Tap the #cafe# button to add a few items.",
-		"TIP_MORE_OPTIONS"     : "Tap on an item for more options.",
+		"TIP_MORE_OPTIONS"     : "Tap on an item to mark its orders. Tap-and-hold for more options.",
 		"ORDERED_BY"           : "Ordered by",
 		"SHARED_BY"            : "Shared by",
 		"SINGULAR"             : "item",

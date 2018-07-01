@@ -15,17 +15,17 @@
 	<ion-list class="no-border-top">
 		<ion-item>
 			<h2 text-wrap class="note" *ngIf="split.itemList.count === 0" [innerHTML]="'ITEMS_PAGE.TIP_ADD' | translate | iconHtml"></h2>
-			<h2 text-wrap class="note" *ngIf="split.itemList.count !== 0" [innerHTML]="'ITEMS_PAGE.TIP_MORE_OPTIONS' | translate | iconHtml"></h2>
+			<h2 text-wrap class="note" *ngIf="split.itemList.count !== 0">{{ 'ITEMS_PAGE.TIP_MORE_OPTIONS' | translate }}</h2>
 		</ion-item>
 	</ion-list>
 
 	<ion-list *ngIf="split.itemList.count !== 0">
-		<ion-item *ngFor="let item of split.itemList.items" (tap)="showActions(item)">
+		<ion-item *ngFor="let item of split.itemList.items" (tap)="itemOrders(item)" (press)="showActions(item)">
 			<ion-avatar item-start text-avatar [id]="item.id" [text]="item.initials" shape="SQUARE"></ion-avatar>
 			<h2 *ngIf="item.quantity === 1">{{ item.name }}</h2>
 			<h2 *ngIf="item.quantity !== 1">{{ item.name }} &times; {{ item.quantity }}</h2>
-			<p text-wrap *ngIf="split.orders.getOrdersForItem(item).length === 1">{{ 'ITEMS_PAGE.ORDERED_BY' | translate:{ names: ListHelpers.names(split.orders.getOrdersForItem(item), split.personList) } }}</p>
-			<p text-wrap *ngIf="split.orders.getOrdersForItem(item).length > 1">{{ 'ITEMS_PAGE.SHARED_BY' | translate:{ names: ListHelpers.names(split.orders.getOrdersForItem(item), split.personList, 2) } }}</p>
+			<p text-wrap *ngIf="split.orders.getOrdersForItem(item).length === 1">{{ 'ITEMS_PAGE.ORDERED_BY' | translate }} {{ ListHelpers.names(split.orders.getOrdersForItem(item), split.personList) }}</p>
+			<p text-wrap *ngIf="split.orders.getOrdersForItem(item).length > 1">{{ 'ITEMS_PAGE.SHARED_BY' | translate }} {{ ListHelpers.names(split.orders.getOrdersForItem(item), split.personList, 2) }}</p>
 			<h2 item-right>{{ item.total | number:'1.0-2' }}</h2>
 			<ion-icon *ngIf="split.orders.getOrdersForItem(item).length === 0" item-right name="warning" color="danger"></ion-icon>
 		</ion-item>
