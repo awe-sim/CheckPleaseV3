@@ -59,7 +59,8 @@ export class ItemsPage extends BasePage {
 					.onBeforeDismiss(data => this.addItemBeforeDismiss(data)),
 				this.ALERT_BUTTONS.ADD_ANOTHER
 					.onBeforeDismiss(data => this.addItemBeforeDismiss(data)),
-			]
+			],
+			resolveAfterDismiss: true,
 		})
 		switch(ret.button) {
 			case this.ALERT_BUTTONS.ADD:

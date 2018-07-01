@@ -59,7 +59,8 @@ export class PersonsPage extends BasePage {
 					.onBeforeDismiss(data => this.addPersonBeforeDismiss(data)),
 				this.ALERT_BUTTONS.ADD_ANOTHER
 					.onBeforeDismiss(data => this.addPersonBeforeDismiss(data)),
-			]
+			],
+			resolveAfterDismiss: true,
 		})
 		switch(ret.button) {
 			case this.ALERT_BUTTONS.ADD:
