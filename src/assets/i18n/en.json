@@ -167,7 +167,30 @@
 	},
 
 	"ADVANCED_REPORT_PAGE": {
-		"TITLE": "Contributions"
+		"TITLE"                     : "Contributions",
+		"AMOUNT_DUE"                : "Amount Due",
+		"AMOUNT_PENDING"            : "Amount Pending",
+		"AMOUNT_POOLED"             : "Amount Pooled",
+		"GRAND_TOTAL"               : "Grand Total",
+		"CHANGE"                    : "Change",
+		"MESSAGE"                   : "We've calculated each person's fair share. Tap on a person below for more options.",
+		"COVERING_EXPENSES_FOR"     : "Covering expenses for",
+		"TIP_TAP_FOR_OPTIONS"       : "Tap for options",
+		"ACTION_TITLE"              : "{{ name }}",
+		"RETURN_CHANGE_TITLE"       : "{{ name }}",
+		"RETURN_CHANGE_MESSAGE"     : "",
+		"RETURN_CHANGE_PLACEHOLDER" : "Enter change between 0 and {{ maxChange }}",
+		"POOL_AMOUNT_TITLE"         : "{{ name }}",
+		"POOL_AMOUNT_MESSAGE"       : "",
+		"POOL_AMOUNT_PLACEHOLDER"   : "Enter the amount pooled",
+		"RENAME_TITLE"              : "{{ name }}",
+		"RENAME_MESSAGE"            : "",
+		"RENAME_PLACEHOLDER"        : "Enter new name",
+		"ERR_BLANK_NAME"            : "Please enter a name",
+		"ERR_DUPLICATE_NAME"        : "Another person already exists with the same name",
+		"ERR_INSUFFICIENT_CHANGE"   : "There is not sufficient change to return this amount",
+		"ERR_INVALID_AMOUNT"        : "Please enter a valid amount",
+		"ERR_UNFAIR_CHANGE"         : "\"{{ name }}\" can reclaim change no greater than {{ amount }}"
 	}
 
 }
