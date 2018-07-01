@@ -87,7 +87,7 @@ export class BasicSplitPage extends BasePage {
 		if (this.numPersons === 0) return this.presentToast({ message: this.translate('BASIC_SPLIT_PAGE.ERR_NUM_PERSONS'), duration: 3000 });
 		this._cloneFromShadow();
 		this.split.updateMath();
-		this.pushPage('BasicReportPage', this.makeParams());
+		this.pushPage('ReportPage', this.makeParams());
 	}
 
 	onClickSwitch() {

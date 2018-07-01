@@ -91,14 +91,13 @@ export class SplitsPage extends BasePage {
 		window['split'] = split;
 		if (split.type === SplitType.BASIC) {
 			if (split.hasStage(SplitStage.BASIC))  pages.push({ page: 'BasicSplitPage', params: params });
-			if (split.hasStage(SplitStage.REPORT)) pages.push({ page: 'BasicReportPage', params: params });
 		}
 		else {
 			if (split.hasStage(SplitStage.PERSONS)) pages.push({ page: 'PersonsPage', params: params });
 			if (split.hasStage(SplitStage.ITEMS))   pages.push({ page: 'ItemsPage', params: params });
 			if (split.hasStage(SplitStage.EXTRAS))  pages.push({ page: 'ExtrasPage', params: params });
-			if (split.hasStage(SplitStage.REPORT))  pages.push({ page: 'AdvancedReportPage', params: params });
 		}
+		if (split.hasStage(SplitStage.REPORT))    pages.push({ page: 'ReportPage', params: params });
 		this.navCtrl.setPages(pages, { animate: true, direction: 'forward' });
 	}
 

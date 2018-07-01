@@ -8,11 +8,11 @@ import { BasePage, SplitStage, SplitType, IPersonReadonly, ListHelpers, IPersonA
 
 @IonicPage()
 @Component({
-	selector    : 'page-basic-report',
-	templateUrl : 'basic-report.html',
+	selector    : 'page-report',
+	templateUrl : 'report.html',
 	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
 })
-export class BasicReportPage extends BasePage {
+export class ReportPage extends BasePage {
 
 	constructor(
 		navCtrl      : NavController,
@@ -24,22 +24,36 @@ export class BasicReportPage extends BasePage {
 		toastCtrl    : ToastCtrl,
 		translateSvc : TranslateService,
 	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['BASIC_REPORT_PAGE']);
+		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['REPORT_PAGE']);
 		this.onError.subscribe(value => value && this.popToRoot(false));
 	}
 
 	get math() { return this.split.math }
 	ListHelpers = ListHelpers;
+	SplitType   = SplitType;
 
 	readParams() {
 		if (!super.readParams()) return false;
 		if (!this.math) return false;
 		return true;
 	}
-	get splitType() { return SplitType.BASIC }
-	get splitStage() { return this.split.stage = SplitStage.BASIC | SplitStage.REPORT | ((this.math.amountPooled >= this.math.grandTotal) ? SplitStage.COMPLETE : 0) }
+	get splitType() { return this.split.type }
+	get splitStage() {
+		let stage: SplitStage = 0;
+		if (this.splitType === SplitType.BASIC) {
+			stage = SplitStage.BASIC;
+		}
+		else {
+			stage = SplitStage.PERSONS | SplitStage.ITEMS | SplitStage.EXTRAS;
+		}
+		stage |= SplitStage.REPORT;
+		if (this.math.amountPooled >= this.math.grandTotal) {
+			stage |= SplitStage.COMPLETE;
+		}
+		return stage;
+	}
 
-	showActions(person: IPersonReadonly, personMath: IMathBasicFinancer) {
+	showBasicActions(person: IPersonReadonly, personMath: IMathBasicFinancer) {
 		let buttons = [];
 		if (this.math.change > 0 && personMath.change > 0) {
 			buttons.push(this.ACTION_BUTTONS.RETURN_CHANGE.onBeforeDismiss(() => this.returnChange(person, personMath)));

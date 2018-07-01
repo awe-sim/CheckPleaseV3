@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { BasicReportPage } from './basic-report';
+import { ReportPage } from './report';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
-	declarations: [ BasicReportPage ],
+	declarations: [ ReportPage ],
 	imports: [
-		IonicPageModule.forChild(BasicReportPage),
+		IonicPageModule.forChild(ReportPage),
 		TranslateModule.forChild(),
 		ComponentsModule,
 		DirectivesModule,
 	],
-	exports: [ BasicReportPage ],
+	exports: [ ReportPage ],
 })
-export class BasicReportPageModule {}
+export class ReportPageModule {}
