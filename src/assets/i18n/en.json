@@ -144,6 +144,7 @@
 		"AMOUNT_PENDING"            : "Amount Pending",
 		"AMOUNT_POOLED"             : "Amount Pooled",
 		"GRAND_TOTAL"               : "Grand Total",
+		"SHOW_DETAILS"              : "Tap to show details",
 		"CHANGE"                    : "Change",
 		"NUM_PERSONS"               : "Persons",
 		"COST_PER_HEAD"             : "Cost per head",

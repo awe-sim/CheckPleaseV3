@@ -19,8 +19,13 @@
 				<h1>{{ split.name }}</h1>
 				<p>{{ split.timestamp | date:'MMMM d, yyyy'}} at {{ split.timestamp | date: 'h:mm a' | lowercase }}</p>
 			</ion-item>
-			<ion-item>
+			<ion-item *ngIf="split.type === SplitType.BASIC">
 				<h2>{{ 'REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
+				<h1 item-right>{{ math.grandTotal | number:'1.0-2' }}</h1>
+			</ion-item>
+			<ion-item *ngIf="split.type === SplitType.ADVANCED" (tap)="showGrandTotalDetails()">
+				<h2>{{ 'REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
+				<p>{{ 'REPORT_PAGE.SHOW_DETAILS' | translate }}</p>
 				<h1 item-right>{{ math.grandTotal | number:'1.0-2' }}</h1>
 			</ion-item>
 			<ion-item class="compact" *ngIf="split.type === SplitType.BASIC">

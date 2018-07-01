@@ -88,6 +88,10 @@ export class ReportPage extends BasePage {
 		})
 	}
 
+	showGrandTotalDetails() {
+		this.pushPage('ItemsReportPage', this.makeParams());
+	}
+
 	async returnChange(person: IPersonReadonly, personMath: IMathBasicFinancer|IMathAdvancedFinancer) {
 		let maxValue = Math.min(this.math.change, personMath.change);
 		let data = {
