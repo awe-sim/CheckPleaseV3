@@ -145,11 +145,12 @@
 	},
 
 	"EXTRAS_PAGE": {
-		"TITLE": "Taxes, any?",
+		"TITLE": "Any extra expenses?",
 		"SUB_TOTAL": "Sub Total",
 		"EXTRAS": "Extras",
 		"GRAND_TOTAL": "Grand Total",
-		"ABOUT_EXTRAS": "<b>Extras</b> can include additional expenses like <b>taxes</b>, <b>credit card charges</b>, or <b>tip</b> for then waiter. These will be split on each person proportional to what they ordered. People who ordered more items will have to pay a greater portion of these extras, and vice versa.",
+		"ABOUT_EXTRAS_1": "<b>Extras</b> can include additional expenses like <b>taxes</b>, <b>credit card charges</b>, or <b>tip</b> for the waiter.",
+		"ABOUT_EXTRAS_2": "These will be divided amongst each person in proportion to what they ordered. People who ordered more items will have to pay a greater share of these extras, and vice versa.",
 		"SKIP_PAGE": "SKIP",
 		"NEXT_PAGE": "NEXT"
 	}

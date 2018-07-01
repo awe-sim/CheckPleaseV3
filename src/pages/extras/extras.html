@@ -15,29 +15,23 @@
 
 	<ion-card class="padding">
 		<ion-card-content>
-			<form>
-				<ion-item>
-					<h2>{{ 'EXTRAS_PAGE.SUB_TOTAL' | translate }}</h2>
-					<h2 item-right>{{ split.itemList.totalAmount | number:'1.0-2' }}</h2>
-				</ion-item>
-				<ion-item>
-					<ion-label>{{ 'EXTRAS_PAGE.EXTRAS' | translate }}</ion-label>
-					<ion-input text-right type="number" [(ngModel)]="split.extras" [ngModelOptions]="{standalone:true}" [placeholder]="'EXTRAS_PAGE.EXTRAS_PLACEHOLDER' | translate"></ion-input>
-				</ion-item>
-				<ion-item>
-					<h2>{{ 'EXTRAS_PAGE.GRAND_TOTAL' | translate }}</h2>
-					<h2 item-right>{{ split.grandTotal | number:'1.0-2' }}</h2>
-				</ion-item>
-			</form>
+			<ion-item>
+				<h2>{{ 'EXTRAS_PAGE.SUB_TOTAL' | translate }}</h2>
+				<h2 item-right>{{ split.itemList.totalAmount | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item>
+				<ion-label>{{ 'EXTRAS_PAGE.EXTRAS' | translate }}</ion-label>
+				<ion-input text-right type="number" [(ngModel)]="extras" [ngModelOptions]="{standalone:true}" [placeholder]="'EXTRAS_PAGE.EXTRAS_PLACEHOLDER' | translate"></ion-input>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'EXTRAS_PAGE.GRAND_TOTAL' | translate }}</h2>
+				<h2 item-right>{{ split.grandTotal | number:'1.0-2' }}</h2>
+			</ion-item>
 		</ion-card-content>
 	</ion-card>
 
-	<ion-list class="compact no-border-top no-border-bottom">
-		<ion-item text-wrap>
-			<p text-justify [innerHTML]="'EXTRAS_PAGE.ABOUT_EXTRAS' | translate"></p>
-		</ion-item>
-	</ion-list>
-	<br>
+	<p text-justify class="note" [innerHTML]="'EXTRAS_PAGE.ABOUT_EXTRAS_1' | translate"></p>
+	<p text-justify class="note" [innerHTML]="'EXTRAS_PAGE.ABOUT_EXTRAS_2' | translate"></p>
 
 	<div class="fab-spacer"></div>
 

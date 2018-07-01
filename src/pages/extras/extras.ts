@@ -29,8 +29,11 @@ export class ExtrasPage extends BasePage {
 		this.onError.subscribe(value => value && this.popToRoot(false));
 	}
 
-	get splitType() { return SplitType.BASIC }
+	get splitType() { return SplitType.ADVANCED }
 	get splitStage() { return SplitStage.PERSONS | SplitStage.ITEMS | SplitStage.EXTRAS }
+
+	get extras() { return this.split.extras }
+	set extras(value) { this.split.setExtras(value) }
 
 	nextPage() {
 		this.pushPage('AdvancedReportPage', this.makeParams());
