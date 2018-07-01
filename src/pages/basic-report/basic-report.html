@@ -48,6 +48,8 @@
 		</ion-list>
 	</ion-card>
 
+	<p class="note">{{ 'BASIC_REPORT_PAGE.MESSAGE' | translate }}</p>
+
 	<ion-card class="padding" *ngFor="let fID of math.basic.financerIDs">
 		<span *ngVar="split.personList.personsMap[fID] as person">
 			<span *ngVar="math.basic.financerMap[fID] as personMath">
@@ -58,11 +60,11 @@
 						<p>{{ 'BASIC_REPORT_PAGE.TIP_TAP_FOR_OPTIONS' | translate }}</p>
 					</ion-item>
 					<ion-item class="compact" *ngIf="person.numDependants !== 0">
-						<p text-wrap>{{ 'BASIC_REPORT_PAGE.COVERING_EXPENSES_FOR' | translate:{names:ListHelpers.names(person.dependants, split.personList, 0)} }}</p>
+						<p text-wrap>{{ 'BASIC_REPORT_PAGE.COVERING_EXPENSES_FOR' | translate }} {{ ListHelpers.names(person.dependants, split.personList, 0) }}</p>
 					</ion-item>
 					<ion-item class="compact">
 						<h2>{{ 'BASIC_REPORT_PAGE.AMOUNT_DUE' | translate }}</h2>
-						<p *ngIf="person.numDependants !== 0">{{ 'BASIC_REPORT_PAGE.AMOUNT_DUE_MATH' | translate:{ perHead: math.basic.perHead.toFixed(2).replace('.00',''), numPersons: 1 + person.numDependants } }}</p>
+						<p *ngIf="person.numDependants !== 0">={{ math.basic.perHead | number:'1.0-2' }} &times; {{ 1 + person.numDependants }}</p>
 						<h2 item-right>{{ personMath.grandTotal | number:'1.0-2' }}</h2>
 					</ion-item>
 					<ion-item class="compact">
