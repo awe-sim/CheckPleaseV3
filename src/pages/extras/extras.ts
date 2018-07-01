@@ -36,6 +36,7 @@ export class ExtrasPage extends BasePage {
 	set extras(value) { this.split.setExtras(value) }
 
 	nextPage() {
+		this.split.updateMath();
 		this.pushPage('AdvancedReportPage', this.makeParams());
 	}
 
