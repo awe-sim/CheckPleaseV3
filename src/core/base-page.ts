@@ -6,16 +6,17 @@ import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl, ActionButton, AlertButton,
 import { Split, SplitStage, SplitType } from './split';
 
 interface IActionButtons {
-	DELETE        : ActionButton;
-	DEPENDANTS    : ActionButton;
-	DISCARD       : ActionButton;
-	EDIT          : ActionButton;
-	OPEN          : ActionButton;
-	ORDERS        : ActionButton;
-	POOL_AMOUNT   : ActionButton;
-	RENAME        : ActionButton;
-	RETURN_CHANGE : ActionButton;
-	SAVE          : ActionButton;
+	DELETE            : ActionButton;
+	DEPENDANTS        : ActionButton;
+	DISCARD           : ActionButton;
+	EDIT              : ActionButton;
+	OPEN              : ActionButton;
+	ORDERS            : ActionButton;
+	POOL_AMOUNT       : ActionButton;
+	RENAME            : ActionButton;
+	RETURN_CHANGE     : ActionButton;
+	SAVE              : ActionButton;
+	SHOW_CALCULATIONS : ActionButton;
 }
 interface IAlertButtons {
 	ADD           : AlertButton;
@@ -87,16 +88,17 @@ export abstract class BasePage {
 						this._translations = values;
 						if (this.loadBaseTranslations) {
 							this._actionButtons = {
-								DEPENDANTS    : new ActionButton(this.translate('BASE_PAGE.BUTTON_DEPENDANTS'),    'contacts'),
-								DELETE        : new ActionButton(this.translate('BASE_PAGE.BUTTON_DELETE'),        'trash'),
-								DISCARD       : new ActionButton(this.translate('BASE_PAGE.BUTTON_DISCARD'),       'trash'),
-								EDIT          : new ActionButton(this.translate('BASE_PAGE.BUTTON_EDIT'),          'create'),
-								OPEN          : new ActionButton(this.translate('BASE_PAGE.BUTTON_OPEN'),          'document'),
-								ORDERS        : new ActionButton(this.translate('BASE_PAGE.BUTTON_ORDERS'),        'cafe'),
-								POOL_AMOUNT   : new ActionButton(this.translate('BASE_PAGE.BUTTON_POOL_AMOUNT'),   'cash'),
-								RENAME        : new ActionButton(this.translate('BASE_PAGE.BUTTON_RENAME'),        'create'),
-								RETURN_CHANGE : new ActionButton(this.translate('BASE_PAGE.BUTTON_RETURN_CHANGE'), 'cash'),
-								SAVE          : new ActionButton(this.translate('BASE_PAGE.BUTTON_SAVE'),          'folder-open'),
+								DEPENDANTS        : new ActionButton(this.translate('BASE_PAGE.BUTTON_DEPENDANTS'),        'contacts'),
+								DELETE            : new ActionButton(this.translate('BASE_PAGE.BUTTON_DELETE'),            'trash'),
+								DISCARD           : new ActionButton(this.translate('BASE_PAGE.BUTTON_DISCARD'),           'trash'),
+								EDIT              : new ActionButton(this.translate('BASE_PAGE.BUTTON_EDIT'),              'create'),
+								OPEN              : new ActionButton(this.translate('BASE_PAGE.BUTTON_OPEN'),              'document'),
+								ORDERS            : new ActionButton(this.translate('BASE_PAGE.BUTTON_ORDERS'),            'cafe'),
+								POOL_AMOUNT       : new ActionButton(this.translate('BASE_PAGE.BUTTON_POOL_AMOUNT'),       'cash'),
+								RENAME            : new ActionButton(this.translate('BASE_PAGE.BUTTON_RENAME'),            'create'),
+								RETURN_CHANGE     : new ActionButton(this.translate('BASE_PAGE.BUTTON_RETURN_CHANGE'),     'cash'),
+								SAVE              : new ActionButton(this.translate('BASE_PAGE.BUTTON_SAVE'),              'folder-open'),
+								SHOW_CALCULATIONS : new ActionButton(this.translate('BASE_PAGE.BUTTON_SHOW_CALCULATIONS'), 'calculator'),
 							};
 							this._alertButtons  = {
 								ADD           : new AlertButton(this.translate('BASE_PAGE.BUTTON_ADD')),
