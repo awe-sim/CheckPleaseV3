@@ -21,6 +21,17 @@
 		"SAVE_PLACEHOLDER"       : "Enter name"
 	},
 
+	"SLIDES_PAGE": {
+		"SKIP"        : "Skip",
+		"CONTINUE"    : "Continue",
+		"SLIDE1_TEXT" : "So you guys have decided to split the check evenly. How hard can that be? You just ask everyone to pool in their shares, right? =P",
+		"SLIDE2_TEXT" : "Nobody caries an exact change. You'll have to track how much each person pooled in so you guys can settle it between yourselves later.",
+		"SLIDE3_TEXT" : "Some may not have enough cash right now, and could've asked or others to cover for them. You'll need to keep track of that too.",
+		"SLIDE4_TEXT" : "And then there's always that guy who thinks you're exagerating his share. Now you have to show him your calculations to prove that you're actually correct.",
+		"SLIDE5_TEXT" : "<b>Check Please!</b> helps you navigate these social situations with ease. We'll keep track of how the money should flow around the table, so you don't have to. =)",
+		"SLIDE6_TEXT" : "And with a bit of help from you, we can even calculate each person's fair share. Now <b>that's</b> something, isn't it? =)"
+	},
+
 	"SPLITS_PAGE": {
 		"TITLE"              : "Check Please!",
 		"NEW_SPLIT"          : "New Split",

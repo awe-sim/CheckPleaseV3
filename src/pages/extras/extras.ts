@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular';
 import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, Split, SplitStage, SplitType } from '../../core';
+import { BasePage, SplitStage, SplitType } from '../../core';
 
 @IonicPage()
 @Component({
