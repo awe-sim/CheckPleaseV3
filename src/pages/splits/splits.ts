@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular';
-import { AlertCtrl, ActionCtrl, ModalCtrl, ToastCtrl } from '../../utils';
+import { AlertCtrl, ActionCtrl, ModalCtrl, SettingsCtrl, ToastCtrl } from '../../utils';
 import { BasePage, ISplitEntry, ListHelpers, Split, SplitStage, SplitType } from '../../core';
 
 const DOUBLE_BACK_DURATION = 3000;
@@ -25,6 +25,7 @@ export class SplitsPage extends BasePage {
 		modalCtrl    : ModalCtrl,
 		toastCtrl    : ToastCtrl,
 		translateSvc : TranslateService,
+		public settingsCtrl : SettingsCtrl,
 	) {
 		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['SPLITS_PAGE']);
 		this.onLoad.subscribe(value => value && this.loadList());

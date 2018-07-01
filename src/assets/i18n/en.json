@@ -1,24 +1,24 @@
 {
 
 	"BASE_PAGE": {
-		"BUTTON_ADD"             : "Add",
-		"BUTTON_ADD_ANOTHER"     : "Add Another",
-		"BUTTON_CANCEL"          : "Cancel",
-		"BUTTON_DELETE"          : "Delete",
-		"BUTTON_DEPENDANTS"      : "Mark Dependants",
-		"BUTTON_EDIT"            : "Edit",
-		"BUTTON_DISCARD"         : "Discard",
-		"BUTTON_OPEN"            : "Open",
-		"BUTTON_ORDERS"          : "Mark Orders",
-		"BUTTON_POOL_AMOUNT"     : "Pool Amount",
-		"BUTTON_RENAME"          : "Rename",
-		"BUTTON_RETURN_CHANGE"   : "Return Change",
-		"BUTTON_SAVE"            : "Save",
-		"ERR_BLANK_SPLIT_NAME"   : "Please enter a name for this split",
-		"ACTION_TITLE"           : "Unsaved Changes",
-		"SAVE_TITLE"             : "",
-		"SAVE_MESSAGE"           : "",
-		"SAVE_PLACEHOLDER"       : "Enter name"
+		"BUTTON_ADD"           : "Add",
+		"BUTTON_ADD_ANOTHER"   : "Add Another",
+		"BUTTON_CANCEL"        : "Cancel",
+		"BUTTON_DELETE"        : "Delete",
+		"BUTTON_DEPENDANTS"    : "Mark Dependants",
+		"BUTTON_EDIT"          : "Edit",
+		"BUTTON_DISCARD"       : "Discard",
+		"BUTTON_OPEN"          : "Open",
+		"BUTTON_ORDERS"        : "Mark Orders",
+		"BUTTON_POOL_AMOUNT"   : "Pool Amount",
+		"BUTTON_RENAME"        : "Rename",
+		"BUTTON_RETURN_CHANGE" : "Return Change",
+		"BUTTON_SAVE"          : "Save",
+		"ERR_BLANK_SPLIT_NAME" : "Please enter a name for this split",
+		"ACTION_TITLE"         : "Unsaved Changes",
+		"SAVE_TITLE"           : "",
+		"SAVE_MESSAGE"         : "",
+		"SAVE_PLACEHOLDER"     : "Enter name"
 	},
 
 	"SLIDES_PAGE": {
@@ -118,52 +118,56 @@
 	},
 
 	"PERSON_DEPENDANTS_PAGE": {
-		"COVERING_EXPENSES_FOR": "Covering expenses for",
-		"TITLE": "Financing someone?"
+		"TITLE"                 : "Financing someone?",
+		"COVERING_EXPENSES_FOR" : "Covering expenses for"
 	},
 
 	"ITEMS_PAGE": {
-		"TITLE"                 : "What's been ordered?",
-		"TIP_ADD"               : "Tap the #cafe# button to add a few items.",
-		"TIP_MORE_OPTIONS"      : "Tap on an item for more options.",
-		"ORDERED_BY"            : "Ordered by",
-		"SHARED_BY"             : "Shared by",
-		"SINGULAR"              : "item",
-		"PLURAL"                : "items",
-		"TOTAL"                 : "Total =",
-		"ACTION_TITLE"          : "{{ name }}",
-		"ADD_TITLE"             : "Add Item",
-		"ADD_MESSAGE"           : "",
-		"EDIT_TITLE"            : "Edit Item",
-		"EDIT_MESSAGE"          : "",
-		"NAME_PLACEHOLDER"      : "Description",
-		"AMOUNT_PLACEHOLDER"    : "Unit price",
-		"QUANTITY_PLACEHOLDER"  : "Quantity",
-		"REMOVE_TITLE"          : "{{ name }}",
-		"REMOVE_MESSAGE"        : "Are you sure you want to remove this item?",
-		"ERR_BLANK_NAME"        : "Please enter a NAME",
-		"ERR_INVALID_AMOUNT"    : "Please enter a valid UNIT PRICE",
-		"ERR_INVALID_QUANTITY"  : "Please enter a valid QUANTITY",
-		"ERR_NO_ITEMS"          : "Please add a few items first!",
-		"ERR_ORPHAN_ITEMS"      : "Please mark orders for all items first!",
-		"NEXT_PAGE"             : "NEXT"
+		"TITLE"                : "What's been ordered?",
+		"TIP_ADD"              : "Tap the #cafe# button to add a few items.",
+		"TIP_MORE_OPTIONS"     : "Tap on an item for more options.",
+		"ORDERED_BY"           : "Ordered by",
+		"SHARED_BY"            : "Shared by",
+		"SINGULAR"             : "item",
+		"PLURAL"               : "items",
+		"TOTAL"                : "Total =",
+		"ACTION_TITLE"         : "{{ name }}",
+		"ADD_TITLE"            : "Add Item",
+		"ADD_MESSAGE"          : "",
+		"EDIT_TITLE"           : "Edit Item",
+		"EDIT_MESSAGE"         : "",
+		"NAME_PLACEHOLDER"     : "Description",
+		"AMOUNT_PLACEHOLDER"   : "Unit price",
+		"QUANTITY_PLACEHOLDER" : "Quantity",
+		"REMOVE_TITLE"         : "{{ name }}",
+		"REMOVE_MESSAGE"       : "Are you sure you want to remove this item?",
+		"ERR_BLANK_NAME"       : "Please enter a NAME",
+		"ERR_INVALID_AMOUNT"   : "Please enter a valid UNIT PRICE",
+		"ERR_INVALID_QUANTITY" : "Please enter a valid QUANTITY",
+		"ERR_NO_ITEMS"         : "Please add a few items first!",
+		"ERR_ORPHAN_ITEMS"     : "Please mark orders for all items first!",
+		"NEXT_PAGE"            : "NEXT"
 	},
 
 	"ITEM_ORDERS_PAGE": {
-		"TITLE": "Who's ordered what?",
-		"SELECT_ALL": "Select All",
-		"SELECT_NONE": "Select None"
+		"TITLE"       : "Who's ordered what?",
+		"SELECT_ALL"  : "Select All",
+		"SELECT_NONE" : "Select None"
 	},
 
 	"EXTRAS_PAGE": {
-		"TITLE": "Any extra expenses?",
-		"SUB_TOTAL": "Sub Total",
-		"EXTRAS": "Extras",
-		"GRAND_TOTAL": "Grand Total",
-		"ABOUT_EXTRAS_1": "<b>Extras</b> can include additional expenses like <b>taxes</b>, <b>credit card charges</b>, or <b>tip</b> for the waiter.",
-		"ABOUT_EXTRAS_2": "These will be divided amongst each person in proportion to what they ordered. People who ordered more items will have to pay a greater share of these extras, and vice versa.",
-		"SKIP_PAGE": "SKIP",
-		"NEXT_PAGE": "NEXT"
+		"TITLE"          : "Any extra expenses?",
+		"SUB_TOTAL"      : "Sub Total",
+		"EXTRAS"         : "Extras",
+		"GRAND_TOTAL"    : "Grand Total",
+		"ABOUT_EXTRAS_1" : "<b>Extras</b> can include additional expenses like <b>taxes</b>, <b>credit card charges</b>, or <b>tip</b> for the waiter.",
+		"ABOUT_EXTRAS_2" : "These will be divided amongst each person in proportion to what they ordered. People who ordered more items will have to pay a greater share of these extras, and vice versa.",
+		"SKIP_PAGE"      : "SKIP",
+		"NEXT_PAGE"      : "NEXT"
+	},
+
+	"ADVANCED_REPORT_PAGE": {
+		"TITLE": "Contributions"
 	}
 
 }

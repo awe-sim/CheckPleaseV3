@@ -4,19 +4,21 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class SettingsCtrl {
 
+	private _storage  : Storage;
 	private _key      : string;
 	private _defaults : any;
 	private _settings : any;
 
 	get settings(): Readonly<any> { return this._settings }
 
-	constructor(public storage: Storage, key: string, defaults: any) {
+	constructor(storage: Storage, key: string, defaults: any) {
+		this._storage  = storage;
 		this._key      = key;
 		this._defaults = defaults;
 	}
 
 	load() {
-		return this.storage.get(this._key).then(value => {
+		return this._storage.get(this._key).then(value => {
 			if (value) {
 				this._settings = value;
 				return this._mergeDefaults(this._defaults);
@@ -47,15 +49,15 @@ export class SettingsCtrl {
 
 	set(key: string, value: any) {
 		this._settings[key] = value;
-		return this.storage.set(this._key, this.settings);
+		return this._storage.set(this._key, this.settings);
 	}
 
 	setAll(value: any) {
-		return this.storage.set(this._key, value);
+		return this._storage.set(this._key, value);
 	}
 
 	get<T>(key: string): Promise<T> {
-		return this.storage.get(this._key)
+		return this._storage.get(this._key)
 			.then(settings => {
 				return settings[key];
 			});
