@@ -1,11 +1,6 @@
 <ion-header>
 	<ion-navbar color="teal">
 		<ion-title>{{ 'ITEMS_REPORT_PAGE.TITLE' | translate }}</ion-title>
-		<ion-buttons end>
-			<button ion-button (click)="close()">
-				<ion-icon name="home"></ion-icon>
-			</button>
-		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 
@@ -13,22 +8,20 @@
 <ion-content *ngIf="onLoad | async">
 
 	<ion-card class="padding">
-		<ion-card-content>
-			<ion-list>
-				<ion-item>
-					<h2>{{ 'ITEMS_REPORT_PAGE.SUB_TOTAL' | translate }}</h2>
-					<h2 item-right>{{ math.advanced.itemsTotal | number:'1.0-2' }}</h2>
-				</ion-item>
-				<ion-item>
-					<h2>{{ 'ITEMS_REPORT_PAGE.EXTRAS' | translate }}</h2>
-					<h2 item-right>{{ math.extras | number:'1.0-2' }}</h2>
-				</ion-item>
-				<ion-item>
-					<h2>{{ 'ITEMS_REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
-					<h2 item-right>{{ math.grandTotal | number:'1.0-2' }}</h2>
-				</ion-item>
-			</ion-list>
-		</ion-card-content>
+		<ion-list>
+			<ion-item>
+				<h2>{{ 'ITEMS_REPORT_PAGE.ITEMS_TOTAL' | translate }}</h2>
+				<h2 item-right>{{ math.advanced.itemsTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'ITEMS_REPORT_PAGE.EXTRAS' | translate }}</h2>
+				<h2 item-right>{{ math.extras | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'ITEMS_REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
+				<h2 item-right>{{ math.grandTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+		</ion-list>
 	</ion-card>
 
 	<ion-list class="compact">
@@ -49,7 +42,7 @@
 	<ion-list class="compact" *ngIf="split.itemList.count !== 0">
 		<ion-item>
 			<p>{{ split.itemList.count }} {{ (split.itemList.count === 1 ? 'ITEMS_REPORT_PAGE.SINGULAR' : 'ITEMS_REPORT_PAGE.PLURAL') | translate }}
-			<p item-right>{{ 'ITEMS_REPORT_PAGE.ITEMS_TOTAL' | translate }} {{ split.itemList.totalAmount | number:'1.0-2' }}</p>
+			<p item-right>{{ 'ITEMS_REPORT_PAGE.TOTAL' | translate }} {{ split.itemList.totalAmount | number:'1.0-2' }}</p>
 		</ion-item>
 	</ion-list>
 

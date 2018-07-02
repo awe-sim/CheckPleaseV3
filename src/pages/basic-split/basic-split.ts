@@ -92,6 +92,9 @@ export class BasicSplitPage extends BasePage {
 
 	onClickSwitch() {
 		this._cloneFromShadow();
+		let isDirty = this.split.isDirty;
+		this.split.type = SplitType.ADVANCED;
+		if (!isDirty) this.split.markClean();
 		this.navCtrl.setPages([{ page: 'PersonsPage', params: this.makeParams() }], { animate: true, direction: 'forward' });
 	}
 

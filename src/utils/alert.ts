@@ -24,7 +24,7 @@ export interface IAlertInput {
 	type         : string;
 	name        ?: string;
 	placeholder ?: string;
-	value       ?: string;
+	value       ?: string | number;
 	label       ?: string;
 	checked     ?: boolean;
 	disabled    ?: boolean;
@@ -89,7 +89,17 @@ export class AlertCtrl {
 				message               : options.message,
 				cssClass              : options.cssClass,
 				enableBackdropDismiss : options.enableBackdropDismiss,
-				inputs                : (options.inputs || []).filter(it => !!it),
+				inputs                : (options.inputs || []).filter(it => !!it).map(it => {
+					return {
+						type        : it.type,
+						name        : it.name,
+						placeholder : it.placeholder,
+						label       : it.label,
+						checked     : it.checked,
+						disabled    : it.disabled,
+						value       : (typeof it.value === 'number') ? it.value.toFixed(2).replace('.00','') : it.value,
+					}
+				}),
 				buttons               : (options.buttons || []).filter(it => !!it).map(it => {
 					if (typeof it === 'string') return {
 						text    : it,

@@ -186,7 +186,10 @@ export abstract class BasePage {
 			}
 		}
 		Object.keys(params || {}).forEach(varName => {
-			console.log(params[varName]);
+			let varValue = params[varName];
+			if (typeof varValue === 'number') {
+				varValue = varValue.toFixed(2).replace('.00', '');
+			}
 			ret = ret.replace(new RegExp(`\{\{ *${varName} *\}\}`, 'g'), params[varName])
 		})
 		return ret;

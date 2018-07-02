@@ -317,6 +317,7 @@ export class Split extends IDName implements ISplitReadonly {
 						sharedByUs     : sharedByUs,
 						sharedByOthers : sharedByOthers,
 						perHead        : itemPerHeadMap[itemID],
+						total          : itemPerHeadMap[itemID] * sharedByUs.length,
 					}
 				})
 				let itemsSubTotal = teamIDs.map(it => personMap[it].itemsTotal).reduce((sum, value) => sum + value, 0);

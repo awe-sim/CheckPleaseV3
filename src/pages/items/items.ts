@@ -99,7 +99,7 @@ export class ItemsPage extends BasePage {
 			message : this.translate('ITEMS_PAGE.EDIT_MESSAGE', data),
 			inputs  : [
 				{ type: 'text', name: 'name', placeholder: this.translate('ITEMS_PAGE.NAME_PLACEHOLDER'), value: item.name },
-				{ type: 'number', name: 'amount', placeholder: this.translate('ITEMS_PAGE.AMOUNT_PLACEHOLDER'), value: item.amount.toFixed(2).replace('.00','') },
+				{ type: 'number', name: 'amount', placeholder: this.translate('ITEMS_PAGE.AMOUNT_PLACEHOLDER'), value: item.amount },
 				{ type: 'number', name: 'quantity', placeholder: this.translate('ITEMS_PAGE.QUANTITY_PLACEHOLDER'), value: item.quantity.toString() },
 			],
 			buttons : [

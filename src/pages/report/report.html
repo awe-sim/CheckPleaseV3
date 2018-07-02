@@ -23,7 +23,7 @@
 				<h2>{{ 'REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
 				<h1 item-right>{{ math.grandTotal | number:'1.0-2' }}</h1>
 			</ion-item>
-			<ion-item *ngIf="split.type === SplitType.ADVANCED" (tap)="showGrandTotalDetails()">
+			<ion-item *ngIf="split.type === SplitType.ADVANCED" (tap)="showItemsReport()">
 				<h2>{{ 'REPORT_PAGE.GRAND_TOTAL' | translate }}</h2>
 				<p>{{ 'REPORT_PAGE.SHOW_DETAILS' | translate }}</p>
 				<h1 item-right>{{ math.grandTotal | number:'1.0-2' }}</h1>
@@ -36,8 +36,13 @@
 				<p>{{ 'REPORT_PAGE.COST_PER_HEAD' | translate }}</p>
 				<p item-right>{{ math.basic.perHead | number:'1.0-2' }}</p>
 			</ion-item>
-			<ion-item>
+			<ion-item *ngIf="math.amountPooled === 0">
 				<h2>{{ 'REPORT_PAGE.AMOUNT_POOLED' | translate }}</h2>
+				<h1 item-right>{{ math.amountPooled | number:'1.0-2' }}</h1>
+			</ion-item>
+			<ion-item *ngIf="math.amountPooled !== 0" (tap)="showPoolDetails()">
+				<h2>{{ 'REPORT_PAGE.AMOUNT_POOLED' | translate }}</h2>
+				<p>{{ 'REPORT_PAGE.SHOW_DETAILS' | translate }}</p>
 				<h1 item-right>{{ math.amountPooled | number:'1.0-2' }}</h1>
 			</ion-item>
 			<ion-item *ngIf="math.change >= 0">

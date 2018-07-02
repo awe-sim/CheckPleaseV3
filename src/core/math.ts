@@ -54,4 +54,5 @@ export interface IMathAdvancedPersonItem extends IIDReadonly {
 export interface IMathAdvancedFinancerItem extends IMathAdvancedPersonItem {
 	readonly sharedByUs     : ReadonlyArray<string>;
 	readonly sharedByOthers : ReadonlyArray<string>;
+	readonly total          : number;
 }

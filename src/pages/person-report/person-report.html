@@ -1,0 +1,94 @@
+<ion-header>
+	<ion-navbar color="teal">
+		<ion-title>{{ 'PERSON_REPORT_PAGE.TITLE' | translate }}</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="close()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content *ngIf="onLoad | async">
+
+	<ion-card class="padding">
+		<ion-list>
+			<ion-item>
+				<ion-avatar item-start text-avatar [id]="person.id" [text]="person.initials" shape="CIRCLE"></ion-avatar>
+				<h1>{{ person.name }}</h1>
+				<h1 item-right>{{ personMath.grandTotal | number:'1.0-2' }}</h1>
+			</ion-item>
+			<ion-item class="compact" *ngIf="person.numDependants !== 0">
+				<p>{{ 'PERSON_REPORT_PAGE.COVERING_EXPENSES_FOR' | translate }}</p>
+			</ion-item>
+			<ion-item *ngIf="person.numDependants !== 0">
+				<ion-avatar item-start text-avatar [id]="person.id" [text]="person.initials" shape="CIRCLE" size="SMALL"></ion-avatar>
+				<h2>{{ person.name }}</h2>
+				<h2 item-right>{{ personMath.me.grandTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item *ngFor="let dependantMath of personMath.dependants">
+				<ion-avatar item-start text-avatar [id]="person.id" [text]="person.dependantsMap[dependantMath.id].initials" shape="CIRCLE" size="SMALL"></ion-avatar>
+				<h2>{{ person.dependantsMap[dependantMath.id].name }}</h2>
+				<h2 item-right>{{ dependantMath.grandTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'PERSON_REPORT_PAGE.ITEMS_FAIR_SHARE' | translate }}</h2>
+				<p>{{ 'PERSON_REPORT_PAGE.TIP_DRILLDOWN' | translate }}</p>
+				<h2 item-right>{{ personMath.itemsTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item class="compact">
+				<h2>{{ 'PERSON_REPORT_PAGE.ITEMS_TOTAL' | translate }}</h2>
+				<h2 item-right>{{ math.advanced.itemsTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item class="compact">
+				<h2>{{ 'PERSON_REPORT_PAGE.EXTRAS' | translate }}</h2>
+				<h2 item-right>{{ math.extras | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'PERSON_REPORT_PAGE.EXTRAS_FAIR_SHARE' | translate }}</h2>
+				<p>= {{ personMath.itemsTotal | number:'1.0-2' }} &times; {{ math.extras | number:'1.0-2' }} &divide; {{ math.advanced.itemsTotal | number:'1.0-2' }}</p>
+				<h2 item-right>{{ personMath.extras | number:'1.0-2' }}</h2>
+			</ion-item>
+			<ion-item>
+				<h2>{{ 'PERSON_REPORT_PAGE.TOTAL_FAIR_SHARE' | translate }}</h2>
+				<p>= {{ personMath.itemsTotal | number:'1.0-2' }} + {{ personMath.extras | number:'1.0-2' }}</p>
+				<h2 item-right>{{ personMath.grandTotal | number:'1.0-2' }}</h2>
+			</ion-item>
+		</ion-list>
+	</ion-card>
+
+	<ion-list *ngFor="let itemMath of personMath.items">
+		<ion-item>
+			<ion-avatar item-start text-avatar [id]="itemMath.id" [text]="split.itemList.itemsMap[itemMath.id].initials" shape="SQUARE"></ion-avatar>
+			<h2>{{ split.itemList.itemsMap[itemMath.id].name }}</h2>
+			<h2 item-right>{{ itemMath.total | number:'1.0-2' }}</h2>
+		</ion-item>
+		<ion-item class="compact">
+			<p>{{ 'PERSON_REPORT_PAGE.ITEM_COST' | translate }}</p>
+			<p item-right>{{ split.itemList.itemsMap[itemMath.id].total | number:'1.0-2' }}</p>
+		</ion-item>
+		<ion-item class="compact">
+			<p>
+				{{ (itemMath.sharedBy.length === 1 ? 'PERSON_REPORT_PAGE.ORDERED_BY' : 'PERSON_REPORT_PAGE.SHARED_BY') | translate }}
+				{{ this.getSharedBy(itemMath) }}
+			</p>
+			<p item-right>{{ itemMath.sharedBy.length }} {{ (itemMath.sharedBy.length === 1 ? 'PERSON_REPORT_PAGE.PERSON_SINGULAR' : 'PERSON_REPORT_PAGE.PERSON_PLURAL') | translate }}</p>
+		</ion-item>
+		<ion-item class="compact" *ngIf="itemMath.sharedByOthers.length !== 0">
+			<p>{{ 'PERSON_REPORT_PAGE.COST_PER_HEAD' | translate }}</p>
+			<p item-right>{{ split.itemList.itemsMap[itemMath.id].total | number:'1.0-2' }} &divide; {{ itemMath.sharedBy.length }} = {{ itemMath.perHead | number:'1.0-2' }}</p>
+		</ion-item>
+		<ion-item class="compact" *ngIf="itemMath.sharedByOthers.length !== 0">
+			<p>{{ 'PERSON_REPORT_PAGE.FAIR_SHARE' | translate }}</p>
+			<p item-right>{{ itemMath.perHead | number:'1.0-2' }} &times; {{ itemMath.sharedByUs.length }} = {{ itemMath.total | number:'1.0-2' }}</p>
+		</ion-item>
+	</ion-list>
+	<ion-list class="compact">
+		<ion-item>
+			<h2>{{ personMath.items.length }} {{ (personMath.items.length === 1 ? 'PERSON_REPORT_PAGE.ITEM_SINGULAR' : 'PERSON_REPORT_PAGE.ITEM_PLURAL') | translate }}</h2>
+			<h2 item-right>{{ 'PERSON_REPORT_PAGE.TOTAL' | translate }} {{ personMath.itemsTotal | number:'1.0-2' }}</h2>
+		</ion-item>
+	</ion-list>
+
+</ion-content>

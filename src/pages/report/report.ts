@@ -81,14 +81,14 @@ export class ReportPage extends BasePage {
 			buttons.push(this.ACTION_BUTTONS.DEPENDANTS.onBeforeDismiss(() => this.markDependants(person, options)));
 		}
 		buttons.push(this.ACTION_BUTTONS.RENAME.onBeforeDismiss(() => this.rename(person)));
-		buttons.push(this.ACTION_BUTTONS.SHOW_CALCULATIONS.onBeforeDismiss(() => this.showPersonCalculations(person, personMath)));
+		buttons.push(this.ACTION_BUTTONS.SHOW_CALCULATIONS.onBeforeDismiss(() => this.showPersonReport(person)));
 		this.presentActions({
 			title   : this.translate('REPORT_PAGE.ACTION_TITLE', { name: person.name }),
 			buttons : buttons,
 		})
 	}
 
-	showGrandTotalDetails() {
+	showItemsReport() {
 		this.pushPage('ItemsReportPage', this.makeParams());
 	}
 
@@ -96,9 +96,9 @@ export class ReportPage extends BasePage {
 		let maxValue = Math.min(this.math.change, personMath.change);
 		let data = {
 			name      : person.name,
-			changeDue : personMath.change.toFixed(2).replace('.00',''),
-			maxChange : maxValue.toFixed(2).replace('.00',''),
-			change    : this.math.change.toFixed(2).replace('.00',''),
+			changeDue : personMath.change,
+			maxChange : maxValue,
+			change    : this.math.change,
 		}
 		await this.presentAlert({
 			title   : this.translate('REPORT_PAGE.RETURN_CHANGE_TITLE', data),
@@ -130,8 +130,8 @@ export class ReportPage extends BasePage {
 	async poolAmount(person: IPersonReadonly, personMath: IMathBasicFinancer|IMathAdvancedFinancer) {
 		let data = {
 			name         : person.name,
-			amountPooled : personMath.amountPooled.toFixed(2).replace('.00',''),
-			total        : personMath.grandTotal.toFixed(2).replace('.00',''),
+			amountPooled : personMath.amountPooled,
+			amountDue    : personMath.grandTotal,
 		}
 		await this.presentAlert({
 			title   : this.translate('REPORT_PAGE.POOL_AMOUNT_TITLE', data),
@@ -189,6 +189,8 @@ export class ReportPage extends BasePage {
 		})
 	}
 
-	async showPersonCalculations(person: IPersonReadonly, personMath: IMathAdvancedFinancer) {}
+	async showPersonReport(person: IPersonReadonly) {
+		this.pushPage('PersonReportPage', this.makeParams({ PARAM_PERSON: person}));
+	}
 
 }

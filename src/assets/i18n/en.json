@@ -156,17 +156,51 @@
 		"RETURN_CHANGE_TITLE"       : "{{ name }}",
 		"RETURN_CHANGE_MESSAGE"     : "",
 		"RETURN_CHANGE_PLACEHOLDER" : "Enter change between 0 and {{ maxChange }}",
-		"POOL_AMOUNT_TITLE"         : "{{ name }}",
-		"POOL_AMOUNT_MESSAGE"       : "",
+		"POOL_AMOUNT_TITLE"         : "",
+		"POOL_AMOUNT_MESSAGE"       : "<b>{{ name }}</b> owes {{ amountDue }} towards the total",
 		"POOL_AMOUNT_PLACEHOLDER"   : "Enter the amount pooled",
-		"RENAME_TITLE"              : "{{ name }}",
-		"RENAME_MESSAGE"            : "",
+		"RENAME_TITLE"              : "Rename",
+		"RENAME_MESSAGE"            : "Change <b>{{ name }}</b>'s name to",
 		"RENAME_PLACEHOLDER"        : "Enter new name",
 		"ERR_BLANK_NAME"            : "Please enter a name",
 		"ERR_DUPLICATE_NAME"        : "Another person already exists with the same name",
 		"ERR_INSUFFICIENT_CHANGE"   : "There is not sufficient change to return this amount",
 		"ERR_INVALID_AMOUNT"        : "Please enter a valid amount",
 		"ERR_UNFAIR_CHANGE"         : "\"{{ name }}\" can reclaim change no greater than {{ amount }}"
+	},
+
+	"ITEMS_REPORT_PAGE": {
+		"TITLE"       : "Expense Drilldown",
+		"ITEMS_TOTAL" : "Items Total",
+		"EXTRAS"      : "Extras",
+		"GRAND_TOTAL" : "Grand Total",
+		"DRILLDOWN"   : "Items Drilldown",
+		"ORDERED_BY"  : "Ordered by",
+		"SHARED_BY"   : "Shared by",
+		"SINGULAR"    : "item",
+		"PLURAL"      : "items",
+		"TOTAL"       : "Total"
+	},
+
+	"PERSON_REPORT_PAGE": {
+		"TITLE"                 : "Expense Drilldown",
+		"COVERING_EXPENSES_FOR" : "Covering expenses for",
+		"ITEMS_FAIR_SHARE"      : "Items Fair Share",
+		"ITEMS_TOTAL"           : "Items Total",
+		"EXTRAS"                : "Extras",
+		"EXTRAS_FAIR_SHARE"     : "Extras Fair Share",
+		"TOTAL_FAIR_SHARE"      : "Total Fair Share",
+		"TIP_DRILLDOWN"         : "See below for drilldown",
+		"ITEM_COST"             : "Item cost",
+		"ORDERED_BY"            : "Ordered by",
+		"SHARED_BY"             : "Shared by",
+		"PERSON_SINGULAR"       : "person",
+		"PERSON_PLURAL"         : "persons",
+		"COST_PER_HEAD"         : "Cost per head",
+		"FAIR_SHARE"            : "Fair share",
+		"ITEM_SINGULAR"         : "item",
+		"ITEM_PLURAL"           : "items",
+		"TOTAL"                 : "Total"
 	}
 
 }
