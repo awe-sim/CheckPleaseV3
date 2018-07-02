@@ -1,0 +1,1 @@
+- Copy "CheckPlease.keystore" and "release-signing.properties" to ".\platforms\android\"
