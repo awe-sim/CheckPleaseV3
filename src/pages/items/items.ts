@@ -2,39 +2,47 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Platform } from 'ionic-angular';
-import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, IItemReadonly, ListHelpers, SplitStage, SplitType, ValidationHelpers } from '../../core';
+import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
+import { MixinSplitBasic, MixinSplitSave, IItemReadonly, ListHelpers, SplitStage, SplitType, ValidationHelpers } from '../../core';
+import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
 	selector    : 'page-items',
 	templateUrl : 'items.html',
-	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
+	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class ItemsPage extends BasePage {
+export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinTranslations(MixinBase)))))) {
+
+	ListHelpers = ListHelpers;
+
+	rootPage   = 'SplitsPage';
+	storageKey = '_entries';
 
 	constructor(
-		navCtrl      : NavController,
-		navParams    : NavParams,
-		platform     : Platform,
-		actionCtrl   : ActionCtrl,
-		alertCtrl    : AlertCtrl,
-		modalCtrl    : ModalCtrl,
-		toastCtrl    : ToastCtrl,
-		translateSvc : TranslateService,
+		public navCtrl      : NavController,
+		public navParams    : NavParams,
+		public actionCtrl   : ActionCtrl,
+		public alertCtrl    : AlertCtrl,
+		public toastCtrl    : ToastCtrl,
+		public translateSvc : TranslateService,
 	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['ITEMS_PAGE']);
-		this.onError.subscribe(value => value && this.popToRoot(false));
+		super();
+		this.translationsInit(['BASE_PAGE', 'ITEMS_PAGE']);
+		this.splitInit();
 	}
+
+	translationsLoadedCallback() {
+		this.actionButtonsLoad();
+		this.alertButtonsLoad();
+	}
+	splitLoadedCallback() {}
 
 	get splitType() { return SplitType.ADVANCED }
 	get splitStage() { return SplitStage.PERSONS | SplitStage.ITEMS }
 
-	ListHelpers = ListHelpers;
-
 	showActions(item: IItemReadonly) {
-		this.presentActions({
+		this.actions({
 			title   : this.translate('ITEMS_PAGE.ACTION_TITLE', { name: item.name }),
 			buttons : [
 				this.ACTION_BUTTONS.EDIT.onBeforeDismiss(() => this.editItem(item)),
@@ -45,7 +53,7 @@ export class ItemsPage extends BasePage {
 	}
 
 	async addItem() {
-		let ret = await this.presentAlert({
+		let ret = await this.alert({
 			title   : this.translate('ITEMS_PAGE.ADD_TITLE'),
 			message : this.translate('ITEMS_PAGE.ADD_MESSAGE'),
 			inputs  : [
@@ -79,22 +87,22 @@ export class ItemsPage extends BasePage {
 		let amount   = +data.amount;
 		let quantity = +data.quantity;
 		if (!name) {
-			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_BLANK_NAME'), duration: 3000 });
+			this.toast({ message: this.translate('ITEMS_PAGE.ERR_BLANK_NAME'), duration: 3000 });
 			return false;
 		}
 		if (!ValidationHelpers.isPositive(amount, false)) {
-			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
+			this.toast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
 			return false;
 		}
 		if (!ValidationHelpers.isPositiveInteger(quantity, false)) {
-			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_QUANTITY'), duration: 3000 });
+			this.toast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_QUANTITY'), duration: 3000 });
 			return false;
 		}
 	}
 
 	editItem(item: IItemReadonly) {
 		let data = { name: item.name };
-		this.presentAlert({
+		this.alert({
 			title   : this.translate('ITEMS_PAGE.EDIT_TITLE', data),
 			message : this.translate('ITEMS_PAGE.EDIT_MESSAGE', data),
 			inputs  : [
@@ -109,15 +117,15 @@ export class ItemsPage extends BasePage {
 					let amount   = +data.amount;
 					let quantity = +data.quantity;
 					if (!name) {
-						this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_BLANK_NAME'), duration: 3000 });
+						this.toast({ message: this.translate('ITEMS_PAGE.ERR_BLANK_NAME'), duration: 3000 });
 						return false;
 					}
 					if (!ValidationHelpers.isPositive(amount, false)) {
-						this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
+						this.toast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
 						return false;
 					}
 					if (!ValidationHelpers.isPositiveInteger(quantity, false)) {
-						this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_QUANTITY'), duration: 3000 });
+						this.toast({ message: this.translate('ITEMS_PAGE.ERR_INVALID_QUANTITY'), duration: 3000 });
 						return false;
 					}
 					let isChanged = false;
@@ -134,7 +142,7 @@ export class ItemsPage extends BasePage {
 
 	async removeItem(item: IItemReadonly) {
 		let data = { name: item.name };
-		this.presentAlert({
+		this.alert({
 			title   : this.translate('ITEMS_PAGE.REMOVE_TITLE', data),
 			message : this.translate('ITEMS_PAGE.REMOVE_MESSAGE', data),
 			buttons : [
@@ -150,7 +158,7 @@ export class ItemsPage extends BasePage {
 
 	async itemOrders(item: IItemReadonly) {
 		let options = this.split.orders.getPossibleOrdersFor(item, this.split.personList);
-		this.pushPage('ItemOrdersPage', this.makeParams({
+		this.pushPage('ItemOrdersPage', this.splitParamsMake({
 			PARAM_ITEM      : item,
 			PARAM_OPTIONS   : options,
 		}));
@@ -158,14 +166,14 @@ export class ItemsPage extends BasePage {
 
 	async nextPage() {
 		if (this.split.itemList.count === 0) {
-			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_NO_ITEMS'), duration: 3000 });
+			this.toast({ message: this.translate('ITEMS_PAGE.ERR_NO_ITEMS'), duration: 3000 });
 			return;
 		}
 		if (this.split.orders.getOrphanItems(this.split.itemList).length !== 0) {
-			this.presentToast({ message: this.translate('ITEMS_PAGE.ERR_ORPHAN_ITEMS'), duration: 3000 });
+			this.toast({ message: this.translate('ITEMS_PAGE.ERR_ORPHAN_ITEMS'), duration: 3000 });
 			return;
 		}
-		this.pushPage('ExtrasPage', this.makeParams());
+		this.pushPage('ExtrasPage', this.splitParamsMake());
 	}
 
 

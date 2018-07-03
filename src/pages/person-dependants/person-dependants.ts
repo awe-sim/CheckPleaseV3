@@ -2,44 +2,44 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Platform } from 'ionic-angular';
-import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, IPersonAssignment, IPersonReadonly } from '../../core';
+import { MixinSplitBasic, IPersonAssignment, IPersonReadonly } from '../../core';
+import { MixinBase, MixinTranslations } from '../../utils/mixins';
+
 
 @IonicPage()
 @Component({
 	selector    : 'page-person-dependants',
 	templateUrl : 'person-dependants.html',
-	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
 })
-export class PersonDependantsPage extends BasePage {
+export class PersonDependantsPage extends MixinSplitBasic(MixinTranslations(MixinBase)) {
 
-	constructor(
-		navCtrl      : NavController,
-		navParams    : NavParams,
-		platform     : Platform,
-		actionCtrl   : ActionCtrl,
-		alertCtrl    : AlertCtrl,
-		modalCtrl    : ModalCtrl,
-		toastCtrl    : ToastCtrl,
-		translateSvc : TranslateService,
-	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['PERSON_DEPENDANTS_PAGE']);
-		this.onError.subscribe(value => value && this.popToRoot(false));
-	}
+	rootPage   = 'SplitsPage';
+	storageKey = '_entries';
 
 	person     : IPersonReadonly;
 	options    : IPersonAssignment[];
 	fnOnChange : Function;
 
-	readParams() {
-		if (!super.readParams()) return false;
+	constructor(
+		public navCtrl      : NavController,
+		public navParams    : NavParams,
+		public translateSvc : TranslateService,
+	) {
+		super();
+		this.translationsInit(['BASE_PAGE', 'PERSON_DEPENDANTS_PAGE']);
+		this.splitInit();
+	}
+
+	translationsLoadedCallback() {}
+	splitParamsRead() {
+		if (!super.splitParamsRead()) return false;
 		this.person     = this.navParams.get('PARAM_PERSON');
 		this.options    = this.navParams.get('PARAM_OPTIONS');
 		this.fnOnChange = this.navParams.get('PARAM_ON_CHANGE');
 		if (!this.person || !this.options) return false;
 		return true;
 	}
+	splitLoadedCallback() {}
 
 	async close() {
 		let isChanged = false;

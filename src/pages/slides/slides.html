@@ -13,9 +13,13 @@
 			<img [src]="slide.image" class="slide-image" />
 			<p [innerHTML]="slide.text"></p>
 		</ion-slide>
-		<ion-slide>
+		<ion-slide *ngIf="lastSlide">
 			<img [src]="lastSlide.image" class="slide-image" />
 			<p [innerHTML]="lastSlide.text"></p>
+			<ion-item>
+				<ion-label>{{ 'SLIDES_PAGE.DONT_SHOW_AGAIN' | translate }}</ion-label>
+				<ion-checkbox item-end color="teal" [(ngModel)]="dontShowAgain"></ion-checkbox>
+			</ion-item>
 			<button ion-button icon-end large clear (click)="startApp()">
 				{{ 'SLIDES_PAGE.CONTINUE' | translate }}
 				<ion-icon name="arrow-forward"></ion-icon>

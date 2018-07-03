@@ -1,33 +1,40 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-
 import { TranslateService } from '@ngx-translate/core';
-import { Platform } from 'ionic-angular';
-import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, SplitStage, SplitType } from '../../core';
+import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
+import { MixinSplitBasic, MixinSplitSave, SplitStage, SplitType } from '../../core';
+import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
   selector    : 'page-extras',
   templateUrl : 'extras.html',
-	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
+	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class ExtrasPage extends BasePage {
+export class ExtrasPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinTranslations(MixinBase)))))) {
+
+	rootPage   = 'SplitsPage';
+	storageKey = '_entries';
 
 	constructor(
-		navCtrl      : NavController,
-		navParams    : NavParams,
-		platform     : Platform,
-		actionCtrl   : ActionCtrl,
-		alertCtrl    : AlertCtrl,
-		modalCtrl    : ModalCtrl,
-		toastCtrl    : ToastCtrl,
-		translateSvc : TranslateService,
+		public navCtrl      : NavController,
+		public navParams    : NavParams,
+		public actionCtrl   : ActionCtrl,
+		public alertCtrl    : AlertCtrl,
+		public toastCtrl    : ToastCtrl,
+		public translateSvc : TranslateService,
 	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['BASIC_SPLIT_PAGE']);
-		this.onError.subscribe(value => value && this.popToRoot(false));
+		super();
+		this.translationsInit(['BASE_PAGE', 'EXTRAS_PAGE']);
+		this.splitInit();
 	}
+
+	translationsLoadedCallback() {
+		this.actionButtonsLoad();
+		this.alertButtonsLoad();
+	}
+	splitLoadedCallback() {}
 
 	get splitType() { return SplitType.ADVANCED }
 	get splitStage() { return SplitStage.PERSONS | SplitStage.ITEMS | SplitStage.EXTRAS }
@@ -37,7 +44,7 @@ export class ExtrasPage extends BasePage {
 
 	nextPage() {
 		this.split.updateMath();
-		this.pushPage('ReportPage', this.makeParams());
+		this.pushPage('ReportPage', this.splitParamsMake());
 	}
 
 

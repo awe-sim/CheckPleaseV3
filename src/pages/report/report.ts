@@ -2,41 +2,50 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Platform } from 'ionic-angular';
-import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, IMathAdvancedFinancer, IMathBasicFinancer, IPersonAssignment, IPersonReadonly, ListHelpers, SplitStage, SplitType, ValidationHelpers } from '../../core';
+import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
+import { MixinSplitBasic, MixinSplitSave, IMathAdvancedFinancer, IMathBasicFinancer, IPersonAssignment, IPersonReadonly, ListHelpers, SplitStage, SplitType, ValidationHelpers } from '../../core';
+import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
 	selector    : 'page-report',
 	templateUrl : 'report.html',
-	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
+	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class ReportPage extends BasePage {
+export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinTranslations(MixinBase)))))) {
 
-	constructor(
-		navCtrl      : NavController,
-		navParams    : NavParams,
-		platform     : Platform,
-		actionCtrl   : ActionCtrl,
-		alertCtrl    : AlertCtrl,
-		modalCtrl    : ModalCtrl,
-		toastCtrl    : ToastCtrl,
-		translateSvc : TranslateService,
-	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['REPORT_PAGE']);
-		this.onError.subscribe(value => value && this.popToRoot(false));
-	}
-
-	get math() { return this.split.math }
 	ListHelpers = ListHelpers;
 	SplitType   = SplitType;
 
-	readParams() {
-		if (!super.readParams()) return false;
+	rootPage   = 'SplitsPage';
+	storageKey = '_entries';
+
+	constructor(
+		public navCtrl      : NavController,
+		public navParams    : NavParams,
+		public actionCtrl   : ActionCtrl,
+		public alertCtrl    : AlertCtrl,
+		public toastCtrl    : ToastCtrl,
+		public translateSvc : TranslateService,
+	) {
+		super();
+		this.translationsInit(['BASE_PAGE', 'REPORT_PAGE']);
+		this.splitInit();
+	}
+
+	get math() { return this.split.math }
+
+	translationsLoadedCallback() {
+		this.actionButtonsLoad();
+		this.alertButtonsLoad();
+	}
+	splitParamsRead() {
+		if (!super.splitParamsRead()) return false;
 		if (!this.math) return false;
 		return true;
 	}
+	splitLoadedCallback() {}
+
 	get splitType() { return this.split.type }
 	get splitStage() {
 		let stage: SplitStage = 0;
@@ -64,7 +73,7 @@ export class ReportPage extends BasePage {
 			buttons.push(this.ACTION_BUTTONS.DEPENDANTS.onBeforeDismiss(() => this.markDependants(person, options)));
 		}
 		buttons.push(this.ACTION_BUTTONS.RENAME.onBeforeDismiss(() => this.rename(person)));
-		this.presentActions({
+		this.actions({
 			title   : this.translate('REPORT_PAGE.ACTION_TITLE', { name: person.name }),
 			buttons : buttons,
 		})
@@ -82,14 +91,14 @@ export class ReportPage extends BasePage {
 		}
 		buttons.push(this.ACTION_BUTTONS.RENAME.onBeforeDismiss(() => this.rename(person)));
 		buttons.push(this.ACTION_BUTTONS.SHOW_CALCULATIONS.onBeforeDismiss(() => this.showPersonReport(person)));
-		this.presentActions({
+		this.actions({
 			title   : this.translate('REPORT_PAGE.ACTION_TITLE', { name: person.name }),
 			buttons : buttons,
 		})
 	}
 
 	showItemsReport() {
-		this.pushPage('ItemsReportPage', this.makeParams());
+		this.pushPage('ItemsReportPage', this.splitParamsMake());
 	}
 
 	async returnChange(person: IPersonReadonly, personMath: IMathBasicFinancer|IMathAdvancedFinancer) {
@@ -100,7 +109,7 @@ export class ReportPage extends BasePage {
 			maxChange : maxValue,
 			change    : this.math.change,
 		}
-		await this.presentAlert({
+		await this.alert({
 			title   : this.translate('REPORT_PAGE.RETURN_CHANGE_TITLE', data),
 			message : this.translate('REPORT_PAGE.RETURN_CHANGE_MESSAGE', data),
 			inputs  : [{ type: 'number', name: 'amount', placeholder: this.translate('REPORT_PAGE.RETURN_CHANGE_PLACEHOLDER', data), value: data.maxChange }],
@@ -109,15 +118,15 @@ export class ReportPage extends BasePage {
 				this.ALERT_BUTTONS.RETURN_CHANGE.onBeforeDismiss(async(data) => {
 					let amount = +data.amount;
 					if (!ValidationHelpers.isZeroOrPositive(amount, false)) {
-						this.presentToast({ message: this.translate('REPORT_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
+						this.toast({ message: this.translate('REPORT_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
 						return false;
 					}
 					if (amount > personMath.change) {
-						this.presentToast({ message: await this.loadTranslations('REPORT_PAGE.ERR_UNFAIR_CHANGE', { name: person.name, amount: personMath.change.toFixed(2).replace('.00','') }), duration: 3000 });
+						this.toast({ message: await this.translationsLoad('REPORT_PAGE.ERR_UNFAIR_CHANGE', { name: person.name, amount: personMath.change.toFixed(2).replace('.00','') }), duration: 3000 });
 						return false;
 					}
 					if (amount > maxValue) {
-						this.presentToast({ message: this.translate('REPORT_PAGE.ERR_INSUFFICIENT_CHANGE'), duration: 3000 });
+						this.toast({ message: this.translate('REPORT_PAGE.ERR_INSUFFICIENT_CHANGE'), duration: 3000 });
 						return false;
 					}
 					if (this.split.personSetPooledAmount(person, person.amountPooled - amount)) {
@@ -133,7 +142,7 @@ export class ReportPage extends BasePage {
 			amountPooled : personMath.amountPooled,
 			amountDue    : personMath.grandTotal,
 		}
-		await this.presentAlert({
+		await this.alert({
 			title   : this.translate('REPORT_PAGE.POOL_AMOUNT_TITLE', data),
 			message : this.translate('REPORT_PAGE.POOL_AMOUNT_MESSAGE', data),
 			inputs  : [{ type: 'number', name: 'amount', placeholder: this.translate('REPORT_PAGE.POOL_AMOUNT_PLACEHOLDER', data), value: person.amountPooled ? data.amountPooled : '' }],
@@ -142,7 +151,7 @@ export class ReportPage extends BasePage {
 				this.ALERT_BUTTONS.POOL_AMOUNT.onBeforeDismiss(data => {
 					let amount = +data.amount;
 					if (!ValidationHelpers.isZeroOrPositive(amount, false)) {
-						this.presentToast({ message: this.translate('REPORT_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
+						this.toast({ message: this.translate('REPORT_PAGE.ERR_INVALID_AMOUNT'), duration: 3000 });
 						return false;
 					}
 					if (this.split.personSetPooledAmount(person, amount)) {
@@ -153,7 +162,7 @@ export class ReportPage extends BasePage {
 		})
 	}
 	async markDependants(person: IPersonReadonly, options: IPersonAssignment[]) {
-		this.pushPage('PersonDependantsPage', this.makeParams({
+		this.pushPage('PersonDependantsPage', this.splitParamsMake({
 			PARAM_PERSON    : person,
 			PARAM_OPTIONS   : options,
 			PARAM_ON_CHANGE : () => {
@@ -163,7 +172,7 @@ export class ReportPage extends BasePage {
 	}
 	async rename(person: IPersonReadonly) {
 		let data = { name: person.name };
-		await this.presentAlert({
+		await this.alert({
 			title   : this.translate('REPORT_PAGE.RENAME_TITLE', data),
 			message : this.translate('REPORT_PAGE.RENAME_MESSAGE', data),
 			inputs  : [{ type: 'text', name: 'name', placeholder: this.translate('REPORT_PAGE.RENAME_PLACEHOLDER', data) }],
@@ -173,11 +182,11 @@ export class ReportPage extends BasePage {
 					let newName = data.name.trim();
 					let oldName = person.name;
 					if (!newName) {
-						this.presentToast({ message: this.translate('REPORT_PAGE.ERR_BLANK_NAME'), duration: 3000 });
+						this.toast({ message: this.translate('REPORT_PAGE.ERR_BLANK_NAME'), duration: 3000 });
 						return false;
 					}
 					if (newName !== oldName && this.split.personList.hasName(newName)) {
-						this.presentToast({ message: this.translate('REPORT_PAGE.ERR_DUPLICATE_NAME'), duration: 3000 });
+						this.toast({ message: this.translate('REPORT_PAGE.ERR_DUPLICATE_NAME'), duration: 3000 });
 						return false;
 					}
 					if (this.split.personSetName(person, newName)) {
@@ -190,7 +199,7 @@ export class ReportPage extends BasePage {
 	}
 
 	async showPersonReport(person: IPersonReadonly) {
-		this.pushPage('PersonReportPage', this.makeParams({ PARAM_PERSON: person}));
+		this.pushPage('PersonReportPage', this.splitParamsMake({ PARAM_PERSON: person}));
 	}
 
 }

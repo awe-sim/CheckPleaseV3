@@ -2,37 +2,37 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Platform } from 'ionic-angular';
-import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, ListHelpers } from '../../core';
+import { MixinSplitBasic, ListHelpers } from '../../core';
+import { MixinBase, MixinTranslations } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
 	selector    : 'page-items-report',
 	templateUrl : 'items-report.html',
-	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
 })
-export class ItemsReportPage extends BasePage {
+export class ItemsReportPage extends MixinSplitBasic(MixinTranslations(MixinBase)) {
 
-	constructor(
-		navCtrl      : NavController,
-		navParams    : NavParams,
-		platform     : Platform,
-		actionCtrl   : ActionCtrl,
-		alertCtrl    : AlertCtrl,
-		modalCtrl    : ModalCtrl,
-		toastCtrl    : ToastCtrl,
-		translateSvc : TranslateService,
-	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['ITEMS_REPORT_PAGE']);
-		this.onError.subscribe(value => value && this.popToRoot(false));
-	}
-
-	get math() { return this.split.math }
 	ListHelpers = ListHelpers;
 
-	readParams() {
-		if (!super.readParams()) return false;
+	rootPage   = 'SplitsPage';
+
+	constructor(
+		public navCtrl      : NavController,
+		public navParams    : NavParams,
+		public translateSvc : TranslateService,
+	) {
+		super();
+		this.translationsInit(['BASE_PAGE', 'ITEMS_REPORT_PAGE']);
+		this.splitInit();
+	}
+
+	translationsLoadedCallback() {}
+	splitLoadedCallback() {}
+
+	get math() { return this.split.math }
+
+	splitParamsRead() {
+		if (!super.splitParamsRead()) return false;
 		if (!this.math) return false;
 		return true;
 	}

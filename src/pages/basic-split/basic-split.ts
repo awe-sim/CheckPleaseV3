@@ -3,44 +3,56 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular';
-import { ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl } from '../../utils';
-import { BasePage, Split, SplitStage, SplitType } from '../../core';
+import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
+import { MixinSplitBasic, MixinSplitSave, Split, SplitStage, SplitType } from '../../core';
+import { MixinBase, MixinTranslations, MixinBackButtonHandler, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
 	selector    : 'page-basic-split',
 	templateUrl : 'basic-split.html',
-	providers   : [ ActionCtrl, AlertCtrl, ModalCtrl, ToastCtrl ],
+	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class BasicSplitPage extends BasePage {
+export class BasicSplitPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinBackButtonHandler(MixinTranslations(MixinBase))))))) {
 
 	shadowSplit: Split;
 
+	rootPage   = 'SplitsPage';
+	storageKey = '_entries';
+
 	constructor(
-		navCtrl      : NavController,
-		navParams    : NavParams,
-		platform     : Platform,
-		actionCtrl   : ActionCtrl,
-		alertCtrl    : AlertCtrl,
-		modalCtrl    : ModalCtrl,
-		toastCtrl    : ToastCtrl,
-		translateSvc : TranslateService,
+		public navCtrl      : NavController,
+		public navParams    : NavParams,
+		public platform     : Platform,
+		public actionCtrl   : ActionCtrl,
+		public alertCtrl    : AlertCtrl,
+		public toastCtrl    : ToastCtrl,
+		public translateSvc : TranslateService,
 	) {
-		super(navCtrl, navParams, platform, actionCtrl, alertCtrl, modalCtrl, toastCtrl, translateSvc, ['BASIC_SPLIT_PAGE']);
-		this.onError.subscribe(value => value && this.popToRoot(false));
-		this.onLoad.subscribe(value => value && this._cloneToShadow());
+		super();
+		this.translationsInit(['BASE_PAGE', 'BASIC_SPLIT_PAGE']);
+		this.splitInit();
 	}
 
-	get backButtonHandler() { return () => this.close() }
+	backButtonHandler() { return () => this.close() }
+	translationsLoadedCallback() {
+		this.actionButtonsLoad();
+		this.alertButtonsLoad();
+	}
+	splitLoadedCallback() {
+		this._cloneToShadow();
+	}
+
 	isDirty() { return this.shadowSplit && this.shadowSplit.isDirty }
 	get splitType() { return SplitType.BASIC }
 	get splitStage() { return SplitStage.BASIC }
 
 	ionViewWillEnter() {
-		this.onLoad.subscribe(value => value && this._cloneToShadow());
+		this._cloneToShadow();
 	}
 
 	_cloneToShadow() {
+		if (!this.split) return;
 		this.shadowSplit = Split.fromJSON(this.split.toJSON());
 		if (this.split.isDirty) this.shadowSplit.markDirty();
 	}
@@ -83,11 +95,11 @@ export class BasicSplitPage extends BasePage {
 	}
 
 	onClickTrack() {
-		if (this.grandTotal === 0) return this.presentToast({ message: this.translate('BASIC_SPLIT_PAGE.ERR_GRAND_TOTAL'), duration: 3000 });
-		if (this.numPersons === 0) return this.presentToast({ message: this.translate('BASIC_SPLIT_PAGE.ERR_NUM_PERSONS'), duration: 3000 });
+		if (this.grandTotal === 0) return this.toast({ message: this.translate('BASIC_SPLIT_PAGE.ERR_GRAND_TOTAL'), duration: 3000 });
+		if (this.numPersons === 0) return this.toast({ message: this.translate('BASIC_SPLIT_PAGE.ERR_NUM_PERSONS'), duration: 3000 });
 		this._cloneFromShadow();
 		this.split.updateMath();
-		this.pushPage('ReportPage', this.makeParams());
+		this.pushPage('ReportPage', this.splitParamsMake());
 	}
 
 	onClickSwitch() {
@@ -95,7 +107,7 @@ export class BasicSplitPage extends BasePage {
 		let isDirty = this.split.isDirty;
 		this.split.type = SplitType.ADVANCED;
 		if (!isDirty) this.split.markClean();
-		this.navCtrl.setPages([{ page: 'PersonsPage', params: this.makeParams() }], { animate: true, direction: 'forward' });
+		this.navCtrl.setPages([{ page: 'PersonsPage', params: this.splitParamsMake() }], { animate: true, direction: 'forward' });
 	}
 
 }

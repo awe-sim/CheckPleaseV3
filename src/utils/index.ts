@@ -3,3 +3,4 @@ export { AlertCtrl, AlertButton, IAlertOptions, IAlertInput, IAlertResult } from
 export { ModalCtrl, IModalOptions } from './modal';
 export { SettingsCtrl } from './settings';
 export { ToastCtrl, IToastOptions } from './toast';
+export { IActionButtons, IAlertButtons, MixinActions, MixinAlert, MixinBackButtonHandler, MixinBase, MixinModal, MixinTranslations, MixinToast } from './mixins';
