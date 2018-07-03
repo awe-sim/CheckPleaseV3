@@ -49,7 +49,7 @@ export function MixinTranslations<T extends Constructor>(Base: T) {
 				if (typeof varValue === 'number') {
 					varValue = varValue.toFixed(2).replace('.00', '');
 				}
-				ret = ret.replace(new RegExp(`\{\{ *${varName} *\}\}`, 'g'), params[varName])
+				ret = ret.replace(new RegExp(`\{\{ *${varName} *\}\}`, 'g'), varValue)
 			})
 			return ret;
 		}
@@ -74,7 +74,6 @@ export function MixinBackButtonHandler<T extends Constructor>(Base: T) {
 		backButtonHandlerSet(fnHandler?: Function) {
 			fnHandler = fnHandler || this.backButtonHandler();
 			if (!fnHandler) return;
-			console.log('BACKBUTTON HANDLER ADDED', this._priotity);
 			this._backButtonHandlers.push(this.platform.registerBackButtonAction(fnHandler, this._priotity++));
 		}
 
@@ -82,7 +81,6 @@ export function MixinBackButtonHandler<T extends Constructor>(Base: T) {
 			if (!this._backButtonHandlers.length) return;
 			this._backButtonHandlers.pop()();
 			--this._priotity;
-			console.log('BACKBUTTON HANDLER REMOVED', this._priotity);
 		}
 
 		ionViewDidEnter() {

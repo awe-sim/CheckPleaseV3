@@ -72,7 +72,6 @@ export class PersonsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mixin
 			],
 			resolveAfterDismiss: true,
 		})
-		console.log(JSON.stringify(ret));
 		switch(ret.button) {
 			case this.ALERT_BUTTONS.ADD:
 			case this.ALERT_BUTTONS.ADD_ANOTHER:

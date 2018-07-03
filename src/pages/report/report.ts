@@ -114,7 +114,7 @@ export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinA
 		await this.alert({
 			title   : this.translate('REPORT_PAGE.RETURN_CHANGE_TITLE', data),
 			message : this.translate('REPORT_PAGE.RETURN_CHANGE_MESSAGE', data),
-			inputs  : [{ type: 'number', name: 'amount', placeholder: this.translate('REPORT_PAGE.RETURN_CHANGE_PLACEHOLDER', data), value: data.maxChange }],
+			inputs  : [{ type: 'number', name: 'amount', placeholder: this.translate('REPORT_PAGE.RETURN_CHANGE_PLACEHOLDER', data) }],
 			buttons : [
 				this.ALERT_BUTTONS.CANCEL,
 				this.ALERT_BUTTONS.RETURN_CHANGE.onBeforeDismiss(async(data) => {

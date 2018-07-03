@@ -68,7 +68,7 @@ export class SplitsPage extends MixinToast(MixinAlert(MixinActions(MixinBackButt
 
 	backButtonHandler() {
 		return () => {
-			console.log('Confirming close...');
+			console.log('Consuming BACKBUTTON...');
 			let now = Date.now();
 			if (now - this.timestampOnBackButton > DOUBLE_BACK_DURATION) {
 				this.timestampOnBackButton = now;
