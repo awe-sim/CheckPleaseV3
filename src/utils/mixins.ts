@@ -65,22 +65,24 @@ export function MixinBackButtonHandler<T extends Constructor>(Base: T) {
 
 		//	TO BE IMPLEMENTED
 		abstract platform: Platform;
-		abstract backButtonHandler(): Function;
 
-		private _oldBackButtonHandler: Function = null;
+		private _backButtonHandlers: Function[] = [];
+		private _priotity = 100;
 
-		BACKBUTTON_HANDLER_PRIORITY = 101;
+		backButtonHandler(): Function { return null }
 
-		backButtonHandlerSet() {
-			if (!this.backButtonHandler()) return;
-			if (this._oldBackButtonHandler) this._oldBackButtonHandler();
-			this._oldBackButtonHandler = this.platform.registerBackButtonAction(this.backButtonHandler(), this.BACKBUTTON_HANDLER_PRIORITY);
+		backButtonHandlerSet(fnHandler?: Function) {
+			fnHandler = fnHandler || this.backButtonHandler();
+			if (!fnHandler) return;
+			console.log('BACKBUTTON HANDLER ADDED', this._priotity);
+			this._backButtonHandlers.push(this.platform.registerBackButtonAction(fnHandler, this._priotity++));
 		}
 
 		backButtonHandlerRemove() {
-			if (!this._oldBackButtonHandler) return;
-			this._oldBackButtonHandler();
-			this._oldBackButtonHandler = null;
+			if (!this._backButtonHandlers.length) return;
+			this._backButtonHandlers.pop()();
+			--this._priotity;
+			console.log('BACKBUTTON HANDLER REMOVED', this._priotity);
 		}
 
 		ionViewDidEnter() {
@@ -119,7 +121,7 @@ export function MixinActions<T extends Constructor>(Base: T) {
 		//	ADDED VIA MixinTranslations
 		abstract translate(key: string, params?: Object): string;
 		//	ADDED VIA MixinBackButtonHandler
-		abstract backButtonHandlerSet();
+		abstract backButtonHandlerSet(fnHandler?: Function);
 		abstract backButtonHandlerRemove();
 
 		private _actionButtons: IActionButtons;
@@ -142,8 +144,9 @@ export function MixinActions<T extends Constructor>(Base: T) {
 		}
 
 		async actions(options: IActionOptions): Promise<string|ActionButton> {
-			this.backButtonHandlerSet();
-			let ret = await this.actionCtrl.present(options);
+			let param = { dismiss: null }
+			this.backButtonHandlerSet(() => param.dismiss && param.dismiss());
+			let ret = await this.actionCtrl.present(options, param);
 			this.backButtonHandlerRemove();
 			return ret;
 		}
@@ -175,7 +178,7 @@ export function MixinAlert<T extends Constructor>(Base: T) {
 		//	ADDED VIA MixinTranslations
 		abstract translate(key: string, params?: Object): string;
 		//	ADDED VIA MixinBackButtonHandler
-		abstract backButtonHandlerSet();
+		abstract backButtonHandlerSet(fnHandler?: Function);
 		abstract backButtonHandlerRemove();
 
 		private _alertButtons: IAlertButtons;
@@ -197,8 +200,9 @@ export function MixinAlert<T extends Constructor>(Base: T) {
 		}
 
 		async alert(options: IAlertOptions): Promise<IAlertResult> {
-			this.backButtonHandlerSet();
-			let ret = await this.alertCtrl.present(options);
+			let param = { dismiss: null }
+			this.backButtonHandlerSet(() => param.dismiss && param.dismiss());
+			let ret = await this.alertCtrl.present(options, param);
 			this.backButtonHandlerRemove();
 			return ret;
 		}
@@ -215,13 +219,13 @@ export function MixinModal<T extends Constructor>(Base: T) {
 		abstract modalCtrl: ModalCtrl;
 
 		//	ADDED VIA MixinBackButtonHandler
-		abstract backButtonHandlerSet();
+		abstract backButtonHandlerSet(fnHandler?: Function);
 		abstract backButtonHandlerRemove();
 
 		async modal(options: IModalOptions): Promise<any> {
-			this.backButtonHandlerSet();
-			let ret = await this.modalCtrl.present(options);
 			this.backButtonHandlerRemove();
+			let ret = await this.modalCtrl.present(options);
+			this.backButtonHandlerSet();
 			return ret;
 		}
 	}
@@ -236,15 +240,16 @@ export function MixinToast<T extends Constructor>(Base: T) {
 		//	TO BE IMPLEMENTED
 		abstract toastCtrl: ToastCtrl;
 
-		//	ADDED VIA MixinBackButtonHandler
-		abstract backButtonHandlerSet();
-		abstract backButtonHandlerRemove();
+		// //	ADDED VIA MixinBackButtonHandler
+		// abstract backButtonHandlerSet(fnHandler?: Function);
+		// abstract backButtonHandlerRemove();
 
 		async toast(options: IToastOptions): Promise<any> {
-			this.backButtonHandlerSet();
-			let ret = await this.toastCtrl.present(options);
-			this.backButtonHandlerRemove();
-			return ret;
+			// this.backButtonHandlerRemove();
+			// let ret = await this.toastCtrl.present(options);
+			// this.backButtonHandlerSet();
+			// return ret;
+			return await this.toastCtrl.present(options);
 		}
 	}
 	return ToastBase;

@@ -44,7 +44,7 @@ export class PersonsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mixin
 	get splitType() { return SplitType.ADVANCED }
 	get splitStage() { return SplitStage.PERSONS }
 
-	async showActions(person: IPersonReadonly) {
+	showActions(person: IPersonReadonly) {
 		let buttons = [];
 		buttons.push(this.ACTION_BUTTONS.RENAME.onBeforeDismiss(() => this.renamePerson(person)));
 		let options = this.split.personList.getPossibleDependantsFor(person);
@@ -72,6 +72,7 @@ export class PersonsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mixin
 			],
 			resolveAfterDismiss: true,
 		})
+		console.log(JSON.stringify(ret));
 		switch(ret.button) {
 			case this.ALERT_BUTTONS.ADD:
 			case this.ALERT_BUTTONS.ADD_ANOTHER:
@@ -93,9 +94,9 @@ export class PersonsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mixin
 		}
 	}
 
-	renamePerson(person: IPersonReadonly) {
+	async renamePerson(person: IPersonReadonly) {
 		let data = { name: person.name };
-		this.alert({
+		await this.alert({
 			title   : this.translate('PERSONS_PAGE.RENAME_TITLE', data),
 			message : this.translate('PERSONS_PAGE.RENAME_MESSAGE', data),
 			inputs  : [{ type: 'text', name: 'name', placeholder: this.translate('PERSONS_PAGE.RENAME_PLACEHOLDER', data), value: person.name }],
@@ -120,7 +121,7 @@ export class PersonsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mixin
 	}
 	async removePerson(person: IPersonReadonly) {
 		let data = { name: person.name };
-		this.alert({
+		await this.alert({
 			title   : this.translate('PERSONS_PAGE.REMOVE_TITLE', data),
 			message : this.translate('PERSONS_PAGE.REMOVE_MESSAGE', data),
 			buttons : [
@@ -134,14 +135,14 @@ export class PersonsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mixin
 		})
 	}
 
-	async personDependants(person: IPersonReadonly, options: IPersonAssignment[]) {
+	personDependants(person: IPersonReadonly, options: IPersonAssignment[]) {
 		this.pushPage('PersonDependantsPage', this.splitParamsMake({
 			PARAM_PERSON    : person,
 			PARAM_OPTIONS   : options,
 		}));
 	}
 
-	async nextPage() {
+	nextPage() {
 		if (this.split.personList.numPersons === 0) {
 			this.toast({ message: this.translate('PERSONS_PAGE.ERR_NEXT_PAGE'), duration: 3000 });
 			return;

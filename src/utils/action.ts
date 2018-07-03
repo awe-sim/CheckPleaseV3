@@ -63,7 +63,7 @@ export class ActionButton {
 @Injectable()
 export class ActionCtrl {
 	constructor(private ctrl: ActionSheetController) { }
-	async present(options: IActionOptions) {
+	async present(options: IActionOptions, param?: { dismiss: Function }) {
 		return new Promise<string|ActionButton>(resolve => {
 			let action = this.ctrl.create({
 				title                 : options.title,
@@ -94,6 +94,7 @@ export class ActionCtrl {
 				})
 			})
 			action.present();
+			if (param) param.dismiss = () => action.dismiss();
 			options.resolveAfterDismiss ? action.onDidDismiss(button => resolve(button)) : action.onWillDismiss(button => resolve(button));
 		})
 	}

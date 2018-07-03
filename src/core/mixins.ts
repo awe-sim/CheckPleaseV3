@@ -96,7 +96,7 @@ export function MixinSplitSave<T extends Constructor>(Base: T) {
 		save() {
 			this.split.type = this.splitType;
 			this.split.stage = this.splitStage;
-			return this.split.save(this.storage, this.storageKey);
+			this.split.save(this.storage, this.storageKey);
 		}
 		close() {
 			if (!this.isDirty()) {
@@ -106,13 +106,13 @@ export function MixinSplitSave<T extends Constructor>(Base: T) {
 				this.actions({
 					title   : this.translate('BASE_PAGE.SAVE_TITLE'),
 					buttons : [
-					this.ACTION_BUTTONS.SAVE.onBeforeDismiss(() => {
+					this.ACTION_BUTTONS.SAVE.onBeforeDismiss(async() => {
 						if (this.isSaved()) {
 							if (this.isDirty()) this.save();
 							this.popToRootPage();
 						}
 						else {
-							this.alert({
+							await this.alert({
 								title   : this.translate('BASE_PAGE.SAVE_TITLE'),
 								message : this.translate('BASE_PAGE.SAVE_MESSAGE'),
 								inputs: [{ type: 'text', name: 'name', placeholder: this.translate('BASE_PAGE.SAVE_PLACEHOLDER') }],

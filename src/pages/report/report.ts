@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
+import { Platform } from 'ionic-angular';
 import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
 import { MixinSplitBasic, MixinSplitSave, IMathAdvancedFinancer, IMathBasicFinancer, IPersonAssignment, IPersonReadonly, ListHelpers, SplitStage, SplitType, ValidationHelpers } from '../../core';
-import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
+import { MixinBase, MixinTranslations, MixinBackButtonHandler, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } fr
 	templateUrl : 'report.html',
 	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinTranslations(MixinBase)))))) {
+export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinBackButtonHandler(MixinTranslations(MixinBase))))))) {
 
 	ListHelpers = ListHelpers;
 	SplitType   = SplitType;
@@ -23,6 +24,7 @@ export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinA
 	constructor(
 		public navCtrl      : NavController,
 		public navParams    : NavParams,
+		public platform     : Platform,
 		public actionCtrl   : ActionCtrl,
 		public alertCtrl    : AlertCtrl,
 		public toastCtrl    : ToastCtrl,
@@ -161,7 +163,7 @@ export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinA
 			]
 		})
 	}
-	async markDependants(person: IPersonReadonly, options: IPersonAssignment[]) {
+	markDependants(person: IPersonReadonly, options: IPersonAssignment[]) {
 		this.pushPage('PersonDependantsPage', this.splitParamsMake({
 			PARAM_PERSON    : person,
 			PARAM_OPTIONS   : options,
@@ -198,7 +200,7 @@ export class ReportPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinA
 		})
 	}
 
-	async showPersonReport(person: IPersonReadonly) {
+	showPersonReport(person: IPersonReadonly) {
 		this.pushPage('PersonReportPage', this.splitParamsMake({ PARAM_PERSON: person}));
 	}
 

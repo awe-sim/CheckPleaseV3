@@ -41,7 +41,7 @@ export class PersonDependantsPage extends MixinSplitBasic(MixinTranslations(Mixi
 	}
 	splitLoadedCallback() {}
 
-	async close() {
+	close() {
 		let isChanged = false;
 		this.options.forEach(it => {
 			if (it.checked !== it.wasChecked) {

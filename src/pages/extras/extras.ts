@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
+import { Platform } from 'ionic-angular';
 import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
 import { MixinSplitBasic, MixinSplitSave, SplitStage, SplitType } from '../../core';
-import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
+import { MixinBase, MixinTranslations, MixinBackButtonHandler, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } fr
   templateUrl : 'extras.html',
 	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class ExtrasPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinTranslations(MixinBase)))))) {
+export class ExtrasPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinBackButtonHandler(MixinTranslations(MixinBase))))))) {
 
 	rootPage   = 'SplitsPage';
 	storageKey = '_entries';
@@ -20,6 +21,7 @@ export class ExtrasPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinA
 	constructor(
 		public navCtrl      : NavController,
 		public navParams    : NavParams,
+		public platform     : Platform,
 		public actionCtrl   : ActionCtrl,
 		public alertCtrl    : AlertCtrl,
 		public toastCtrl    : ToastCtrl,

@@ -81,7 +81,7 @@ export class AlertButton {
 @Injectable()
 export class AlertCtrl {
 	constructor(private ctrl: AlertController) { }
-	async present(options: IAlertOptions) {
+	async present(options: IAlertOptions, param?: { dismiss: Function }) {
 		return new Promise<IAlertResult>(resolve => {
 			let alert = this.ctrl.create({
 				title                 : options.title,
@@ -125,6 +125,7 @@ export class AlertCtrl {
 				})
 			})
 			alert.present();
+			if (param) param.dismiss = () => alert.dismiss({});
 			options.resolveAfterDismiss ? alert.onDidDismiss(ret => resolve(ret)) : alert.onWillDismiss(ret => resolve(ret));
 		})
 	}

@@ -83,9 +83,9 @@ export class BasicSplitPage extends MixinSplitSave(MixinSplitBasic(MixinToast(Mi
 	}
 
 
-	async save() {
+	save() {
 		this._cloneFromShadow();
-		await super.save();
+		super.save();
 	}
 	nextNameGenerator(prefix: string) {
 		return (() => {

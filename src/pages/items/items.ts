@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
+import { Platform } from 'ionic-angular';
 import { ActionCtrl, AlertCtrl, ToastCtrl } from '../../utils';
 import { MixinSplitBasic, MixinSplitSave, IItemReadonly, ListHelpers, SplitStage, SplitType, ValidationHelpers } from '../../core';
-import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
+import { MixinBase, MixinTranslations, MixinBackButtonHandler, MixinActions, MixinAlert, MixinToast } from '../../utils/mixins';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { MixinBase, MixinTranslations, MixinActions, MixinAlert, MixinToast } fr
 	templateUrl : 'items.html',
 	providers   : [ ActionCtrl, AlertCtrl, ToastCtrl ],
 })
-export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinTranslations(MixinBase)))))) {
+export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAlert(MixinActions(MixinBackButtonHandler(MixinTranslations(MixinBase))))))) {
 
 	ListHelpers = ListHelpers;
 
@@ -22,6 +23,7 @@ export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAl
 	constructor(
 		public navCtrl      : NavController,
 		public navParams    : NavParams,
+		public platform     : Platform,
 		public actionCtrl   : ActionCtrl,
 		public alertCtrl    : AlertCtrl,
 		public toastCtrl    : ToastCtrl,
@@ -100,9 +102,9 @@ export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAl
 		}
 	}
 
-	editItem(item: IItemReadonly) {
+	async editItem(item: IItemReadonly) {
 		let data = { name: item.name };
-		this.alert({
+		await this.alert({
 			title   : this.translate('ITEMS_PAGE.EDIT_TITLE', data),
 			message : this.translate('ITEMS_PAGE.EDIT_MESSAGE', data),
 			inputs  : [
@@ -142,7 +144,7 @@ export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAl
 
 	async removeItem(item: IItemReadonly) {
 		let data = { name: item.name };
-		this.alert({
+		await this.alert({
 			title   : this.translate('ITEMS_PAGE.REMOVE_TITLE', data),
 			message : this.translate('ITEMS_PAGE.REMOVE_MESSAGE', data),
 			buttons : [
@@ -156,7 +158,7 @@ export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAl
 		})
 	}
 
-	async itemOrders(item: IItemReadonly) {
+	itemOrders(item: IItemReadonly) {
 		let options = this.split.orders.getPossibleOrdersFor(item, this.split.personList);
 		this.pushPage('ItemOrdersPage', this.splitParamsMake({
 			PARAM_ITEM      : item,
@@ -164,7 +166,7 @@ export class ItemsPage extends MixinSplitSave(MixinSplitBasic(MixinToast(MixinAl
 		}));
 	}
 
-	async nextPage() {
+	nextPage() {
 		if (this.split.itemList.count === 0) {
 			this.toast({ message: this.translate('ITEMS_PAGE.ERR_NO_ITEMS'), duration: 3000 });
 			return;

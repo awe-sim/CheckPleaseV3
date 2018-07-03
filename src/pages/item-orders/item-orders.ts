@@ -46,7 +46,7 @@ export class ItemOrdersPage extends MixinSplitBasic(MixinTranslations(MixinBase)
 		this.options.forEach(it => it.checked = false);
 	}
 
-	async close() {
+	close() {
 		let isChanged = false;
 		this.options.forEach(it => {
 			if (it.checked !== it.wasChecked) {
