@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
+import { ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Platform } from 'ionic-angular';
+import { Platform, Slides } from 'ionic-angular';
 import { MixinBase, MixinTranslations, MixinBackButtonHandler } from '../../utils/mixins';
 
 interface Slide {
@@ -19,6 +20,7 @@ export class SlidesPage extends MixinBackButtonHandler(MixinTranslations(MixinBa
 
 	slides    : Slide[];
 	lastSlide : Slide;
+	@ViewChild(Slides) slidesCtrl: Slides;
 
 	showSkip = true;
 	dir      = 'ltr';
@@ -44,7 +46,13 @@ export class SlidesPage extends MixinBackButtonHandler(MixinTranslations(MixinBa
 		this.lastSlide = { text: this.translate('SLIDE6_TEXT'), image : 'assets/slides/slide-6.jpg' }
 	}
 	backButtonHandler() { return () => {
-		console.log('Suppressing BACKBUTTON..');
+		if (this.slidesCtrl.isEnd()) {
+			this.startApp();
+		}
+		else {
+			this.slidesCtrl.slideNext();
+		}
+		console.log('Consuming BACKBUTTON..');
 	}}
 
 	onSlideChangeStart(slider) {
